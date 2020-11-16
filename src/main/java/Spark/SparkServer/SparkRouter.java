@@ -5,6 +5,7 @@ import com.github.jknack.handlebars.Template;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import controllers.*;
+import domain.validadorDeTransparencia.AsistentePlanificacionValidadorTransparencia;
 import middlewares.MiddleWare;
 
 import org.apache.commons.io.IOUtils;
@@ -49,6 +50,7 @@ public class SparkRouter {
     }
 
     public static void main(String[] args) throws Exception {
+        //AsistentePlanificacionValidadorTransparencia.instancia();
         Spark.port(getHerokuAssignedPort());
         SparkRouter.init();
         DebugScreen.enableDebugScreen();
