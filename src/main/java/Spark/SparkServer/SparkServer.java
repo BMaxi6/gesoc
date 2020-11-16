@@ -1,6 +1,8 @@
 package Spark.SparkServer;
 
+import controllers.*;
 import domain.validadorDeTransparencia.AsistentePlanificacionValidadorTransparencia;
+import middlewares.MiddleWare;
 import spark.Spark;
 import spark.debug.DebugScreen;
 

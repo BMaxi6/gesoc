@@ -85,6 +85,7 @@ public class SparkRouter {
 
 
         //---------------------------------------------LOGIN - HOME - PERFIL
+        get("/", logInController::inicio, SparkRouter.engine);
         Spark.get("/", logInController::inicio, SparkRouter.engine);
         Spark.post("/login", logInController::login);
         Spark.before("/gesoc/*", MiddleWare.instancia()::verificarSesion);

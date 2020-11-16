@@ -19,7 +19,7 @@
                 <version>3.0.4</version>
                 <configuration>
                     <processTypes>
-                        <appName>gesoc</appName>
+                        <appName>gesoc-spark</appName>
                         <web>java -cp target/classes:target/dependency/* Spark.SparkServer.SparkServer</web>
                     </processTypes>
                 </configuration>
