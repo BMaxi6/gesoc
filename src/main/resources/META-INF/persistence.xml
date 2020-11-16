@@ -14,9 +14,9 @@
             <property name="hibernate.archive.autodetection" value="class"/>
 
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_1bf34ca06164562" />
-            <property name="hibernate.connection.username" value="b43bad4a38ef06" />
-            <property name="hibernate.connection.password" value="c72aa0f7"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://www.db4free.net:3306/gesocdbs" />
+            <property name="hibernate.connection.username" value="gesoc1" />
+            <property name="hibernate.connection.password" value="#dZu9Y*u$2VkDHF"/>
 
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
