@@ -11,6 +11,7 @@ import org.apache.commons.io.IOUtils;
 import repositorios.FactoryRepositorio;
 import spark.QueryParamsMap;
 import spark.Spark;
+import spark.debug.DebugScreen;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import Spark.utils.BooleanHelper;
 import Spark.utils.HandlebarsTemplateEngineBuilder;
@@ -47,19 +48,41 @@ public class SparkRouter {
     }
 
     public static void main(String[] args) throws Exception {
-        String data = "{\"subject\": \"World\"}";
-        String decoration = "Hello {{subject}}!";
+        Spark.port(getHerokuAssignedPort());
+        SparkRouter.init();
+        DebugScreen.enableDebugScreen();
 
-        Handlebars handlebars = new Handlebars();
-        Gson gson = new Gson();
+        LogInController logInController= new LogInController();
+        HomeController homeController= new HomeController();
+        UsuarioController usuarioController=new UsuarioController();
+        EgresoController egresoController = new EgresoController();
+        EntidadJuridicaController entidadJuridicaController= new EntidadJuridicaController();
+        AdministradorController administradorController = new AdministradorController();
+        IngresoController ingresoController = new IngresoController();
+        PresupuestoController presupuestoController = new PresupuestoController();
+        CategoriasController categoriasController = new CategoriasController();
+        BandejaDeMensajesController bandejaDeMensajesController = new BandejaDeMensajesController();
+        DireccionController direccionController= new DireccionController();
+        EdicionEgresoController edicionEgresoController = new EdicionEgresoController();
+        ValidadorTransparenciaController validadorTransparenciaController= new ValidadorTransparenciaController();
+        CriteriosController criteriosController = new CriteriosController();
+        EdicionPresupuestoController edicionPresupuestoController= new EdicionPresupuestoController();
+        EdicionCriteriosCategoriasController edicionCriteriosCategoriasController = new EdicionCriteriosCategoriasController();
+        GeSocController geSocController=new GeSocController();
+        ArchivoController archivoController=new ArchivoController();
 
-        Type type = new TypeToken<Map<String, Object>>(){}.getType();
-        Map<String, Object> map = gson.fromJson(data, type);
 
-        Template template = handlebars.compileInline(decoration);
-        Context context = Context.newBuilder(map).build();
+        //---------------------------------------------LOGIN - HOME - PERFIL
 
-        String output = template.apply(context);
+        get("/", logInController::inicio, SparkRouter.engine);
+    }
+
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
     }
 
 
@@ -85,7 +108,7 @@ public class SparkRouter {
 
 
         //---------------------------------------------LOGIN - HOME - PERFIL
-        get("/", logInController::inicio, SparkRouter.engine);
+
         Spark.get("/", logInController::inicio, SparkRouter.engine);
         Spark.post("/login", logInController::login);
         Spark.before("/gesoc/*", MiddleWare.instancia()::verificarSesion);
