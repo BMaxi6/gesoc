@@ -389,7 +389,6 @@ public class SparkRouter {
         Spark.get("/gesoc/download",archivoController::descargarArchivo);
 
         Spark.get("/error_logueo", ControllerError::mostrarBloqueoLogin, SparkRouter.engine);
-
     }
 
 }
