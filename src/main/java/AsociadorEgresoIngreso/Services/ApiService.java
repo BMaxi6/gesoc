@@ -36,10 +36,12 @@ public class ApiService {
             prop.load(is);
         } catch(IOException e) {
             System.out.println(e.toString());
+            System.out.println("Aca no encontro nadaaaaa");
         }
 
         this.retrofit=new Retrofit.Builder().baseUrl(this.prop.getProperty("PATH_BASE_API"))
-                .addConverterFactory(GsonConverterFactory.create()).build();
+            .addConverterFactory(GsonConverterFactory.create()).build();
+        System.out.println("Base URL: " + retrofit.baseUrl());
     }
 
     public void guardarIngresos(List<IngresoApi> ingresos) throws IOException {

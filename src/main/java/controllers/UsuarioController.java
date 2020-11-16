@@ -47,7 +47,7 @@ public class UsuarioController implements Controlador{
         Usuario usuario= repoUsuarios.buscar(idUsuario);
         try {
 
-            String contraseniaNueva=request.queryParams("contrasenia_nueva");
+            String contraseniaNueva=request.queryParams("contraseña_nueva");
             String contraseniaNuevaConfirmacion=request.queryParams("contrasenia_nueva_confirmacion");
             String contraseniaAnterior=request.queryParams("contrasenia_anterior");
             if(Objects.equals(contraseniaNueva, contraseniaNuevaConfirmacion)){
