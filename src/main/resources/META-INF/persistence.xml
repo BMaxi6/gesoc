@@ -14,7 +14,7 @@
             <property name="hibernate.archive.autodetection" value="class"/>
 
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_1bf34ca06164562" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://sql10.freemysqlhosting.net:3306/sq" />
             <property name="hibernate.connection.username" value="b43bad4a38ef06" />
             <property name="hibernate.connection.password" value="c72aa0f7"/>
 
