@@ -9,8 +9,6 @@ import domain.EntidadesOrganizacionales.CategoriaEmpresa.CategoriaEmpresa;
 import domain.EntidadesOrganizacionales.CategoriaEmpresa.CategorizadorDeEmpresas;
 import domain.Personas.Usuario;
 import org.hibernate.Criteria;
-import spark.Spark;
-import spark.SparkServer;
 import validadorContrasenias.ValidadorDeContrasenias;
 import repositorios.*;
 

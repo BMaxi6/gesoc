@@ -44,6 +44,7 @@ public class SparkRouter {
     public static void init() {
         SparkRouter.initEngine();
         Spark.staticFileLocation("/public");
+
         SparkRouter.configure();
     }
 
@@ -73,7 +74,6 @@ public class SparkRouter {
 
 
         //---------------------------------------------LOGIN - HOME - PERFIL
-
         Spark.get("/", logInController::inicio, SparkRouter.engine);
         Spark.post("/login", logInController::login);
         Spark.before("/gesoc/*", MiddleWare.instancia()::verificarSesion);
@@ -247,7 +247,6 @@ public class SparkRouter {
 
 
         //---------------------------------------------LOGIN - HOME - PERFIL
-
         Spark.get("/", logInController::inicio, SparkRouter.engine);
         Spark.post("/login", logInController::login);
         Spark.before("/gesoc/*", MiddleWare.instancia()::verificarSesion);

@@ -18,22 +18,16 @@ import java.util.stream.Collectors;
 
 public class DireccionController {
     public String obtenerPaises (Request request, Response response){
-
         List<Pais> paises= FactoryRepositorio.instancia().obtenerRepositorio(Pais.class).buscarTodos();
         List<PaisJson> paisesJson=paises.stream().map(p->PaisJson.toPaisJson(p)).collect(Collectors.toList());
 
         Type listType = new TypeToken<ArrayList<PaisJson>>(){}.getType();
-
-
-
         Gson gson = new Gson();
         String jsonPaises = gson.toJson(paisesJson, listType);
-
-
         response.type("application/json");
         System.out.println("json" + jsonPaises);
         return jsonPaises;
-
+        //return "";
     }
 
 }
