@@ -1,7 +1,7 @@
 var http_request = false;
 
 
-const url = 'http://localhost:9187/criterio_subcriterios';
+const url = 'http://gesoc-spark.herokuapp.com//criterio_subcriterios';
 
 function makeRequest(url) {
 

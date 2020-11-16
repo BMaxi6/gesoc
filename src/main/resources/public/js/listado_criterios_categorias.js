@@ -1,6 +1,6 @@
 var http_request = false;
 
-var urlCategoriasListado = 'http://localhost:9187/criterio_categorias';
+var urlCategoriasListado = 'http://gesoc-spark.herokuapp.com/criterio_categorias';
 
 function makeRequest(url) {
 

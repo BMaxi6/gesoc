@@ -1,6 +1,6 @@
 var paises= [];
 
-const url_paises= 'http://localhost:9187/obtener_paises';
+const url_paises= 'http://gesoc-spark.herokuapp.com/obtener_paises';
 const select_pais="select_proveedor_pais";
 const select_provincia="select_proveedor_provincia";
 const select_ciudad="select_proveedor_ciudad";

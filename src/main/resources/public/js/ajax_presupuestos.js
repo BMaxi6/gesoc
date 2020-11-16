@@ -3,7 +3,7 @@
     
      var documentoComercial= new Object();
 
-     const urlItems= 'http://localhost:9187/obtener_item';
+     const urlItems= 'http://gesoc-spark.herokuapp.com/obtener_item';
 
     function makeRequestItems(url) {
 

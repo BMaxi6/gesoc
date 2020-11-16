@@ -2,9 +2,9 @@ var http_request = false;
 
 var idUsuario;
 
-var url= 'http://localhost:9187/informacion_egreso';
+var url= 'http://gesoc-spark.herokuapp.com/informacion_egreso';
 
-var urlCriterios='http://localhost:9187/obtener_criterios';
+var urlCriterios='http://gesoc-spark.herokuapp.com/obtener_criterios';
 
 function obtenerIdUsuario(){
     idUsuario = document.getElementById("input_id_usuario").value;

@@ -1,8 +1,8 @@
 var http_request = false;
 
 
-const urlEgreso= 'http://localhost:9187/obtener_egreso';
-const urlIngreso= 'http://localhost:9187/obtener_ingreso';
+const urlEgreso= 'http://gesoc-spark.herokuapp.com/obtener_egreso';
+const urlIngreso= 'http://gesoc-spark.herokuapp.com/obtener_ingreso';
 
 function makeRequestEgreso(url) {
 

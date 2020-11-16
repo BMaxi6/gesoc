@@ -1,6 +1,6 @@
 var http_request = false;
 
-const url= 'http://localhost:9187/';
+const url= 'http://gesoc-spark.herokuapp.com/';
 var idUsuario;
 
 function makeRequest(url) {

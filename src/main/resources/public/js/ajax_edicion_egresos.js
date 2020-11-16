@@ -1,4 +1,4 @@
-var urlDoc= 'http://localhost:9187/informacion_doc_comercial';
+var urlDoc= 'http://gesoc-spark.herokuapp.com//informacion_doc_comercial';
 
 function makeRequestDoc(url) {
 

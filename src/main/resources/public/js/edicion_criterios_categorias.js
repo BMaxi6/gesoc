@@ -2,7 +2,7 @@ var http_request = false;
 
 var idUsuario;
 
-var urlCriterios='http://localhost:9187/obtener_criterios_edicion';
+var urlCriterios='http://gesoc-spark.herokuapp.com/obtener_criterios_edicion';
 
 function obtenerIdUsuario(){
     idUsuario = document.getElementById("input_id_usuario").value;
