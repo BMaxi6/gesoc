@@ -25,8 +25,8 @@ public class ValidadorDeContrasenias {
         this.validaciones = validaciones;
     }
 
-    public String validacionesContraseña(){
-        String validaciones = "La contraseña debe: no repetir 3 caracteres seguidos, ni presentarlos en escalera(123). Tener una longitud entre 8 y 64 caracteres.";
+    public String validacionesContrasenia(){
+        String validaciones = "La contrasenia debe: no repetir 3 caracteres seguidos, ni presentarlos en escalera(123). Tener una longitud entre 8 y 64 caracteres.";
         return validaciones;
     }
 
@@ -36,7 +36,7 @@ public class ValidadorDeContrasenias {
         validaciones.remove(validacion);
     }
 
-    //-------------------------- Ingresar Contraseñas --------------------------//
+    //-------------------------- Ingresar contrasenias --------------------------//
 
     public static class DebilException extends Exception {
         public DebilException(String msg) {

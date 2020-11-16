@@ -66,15 +66,15 @@ public class AdministradorController implements Controlador{
             if(admin.contraseniaCorrecta(contraseniaAnterior)){
                 admin.setContrasenia(contraseniaNueva);
                 repoAdmin.modificar(admin);
-                this.setearModalAlerta(request, "Contraseña modificada exitosamente", "Su contraseña ha sido modificada con exito", AsistenteDeColores.getExito());
+                this.setearModalAlerta(request, "contrasenia modificada exitosamente", "Su contrasenia ha sido modificada con exito", AsistenteDeColores.getExito());
                 response.redirect("/gesoc/administracion/admin");
                 //response.redirect(new Formatter().format("/gesoc/administracion/admin/%d", admin.getId()).toString());
             }else{
-                this.setearModalAlerta(request, "Error al modificar contraseña", "La contraseña ingresada es incorrecta", AsistenteDeColores.getError());
+                this.setearModalAlerta(request, "Error al modificar contrasenia", "La contrasenia ingresada es incorrecta", AsistenteDeColores.getError());
                 response.redirect("/gesoc/administracion/admin");
             }
         }else {
-            this.setearModalAlerta(request, "Error al modificar contraseña", "Las contraseñas no coinciden", AsistenteDeColores.getError());
+            this.setearModalAlerta(request, "Error al modificar contrasenia", "Las contrasenias no coinciden", AsistenteDeColores.getError());
             response.redirect("/gesoc/administracion/admin");
         }
         return response;
@@ -367,10 +367,10 @@ public class AdministradorController implements Controlador{
                         this.setearModalAlerta(request, "Nuevo Admininstrador Generado", "Se ha generado el administrador " + nombreUsuario + " exitosamente.", AsistenteDeColores.getExito());
                     }
                 }else{
-                    this.setearModalAlerta(request, "Error al generar nuevo usuario", "La contraseña ingresada es insegura. " + ValidadorDeContrasenias.instancia().validacionesContraseña(), AsistenteDeColores.getError());
+                    this.setearModalAlerta(request, "Error al generar nuevo usuario", "La contrasenia ingresada es insegura. " + ValidadorDeContrasenias.instancia().validacionesContrasenia(), AsistenteDeColores.getError());
                 }
             }else{
-                this.setearModalAlerta(request, "Error al generar nuevo usuario", "Las contraseñas deben coincidir.", AsistenteDeColores.getError());
+                this.setearModalAlerta(request, "Error al generar nuevo usuario", "Las contrasenias deben coincidir.", AsistenteDeColores.getError());
             }
         }catch(Exception e){
             this.setearModalAlerta(request, "Error al generar nuevo usuario", "No se ha podido generar el usuario. Intentelo nuevamente.", AsistenteDeColores.getError());

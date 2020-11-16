@@ -57,24 +57,24 @@ public class UsuarioController implements Controlador{
                     if(ValidadorDeContrasenias.instancia().esContraseniaSegura(contraseniaNueva)){
                         usuario.setContrasenia(contraseniaNueva);
                         repoUsuarios.modificar(usuario);
-                        this.setearModalAlerta(request, "Cambio de contraseña exitoso", "Se ha cambiado su contraseña.", AsistenteDeColores.getExito());
+                        this.setearModalAlerta(request, "Cambio de contrasenia exitoso", "Se ha cambiado su contrasenia.", AsistenteDeColores.getExito());
                     }else{
-                        this.setearModalAlerta(request, "Error en el cambio de contraseña", "La contraseña ingresada no es segura. Reintente con otra contraseña.", AsistenteDeColores.getError());
+                        this.setearModalAlerta(request, "Error en el cambio de contrasenia", "La contrasenia ingresada no es segura. Reintente con otra contrasenia.", AsistenteDeColores.getError());
                     }
 
 
 
                     response.redirect(new Formatter().format("/gesoc/home/perfil", usuario.getId()).toString());
                 }else{
-                    this.setearModalAlerta(request, "Error en el cambio de contraseña", "Ingresó mal la contraseña anterior.", AsistenteDeColores.getError());
-                    response.redirect(new Formatter().format("/gesoc/home/perfil", usuario.getId()).toString());//falta avisar que ingreso mal la contraseña anterior
+                    this.setearModalAlerta(request, "Error en el cambio de contrasenia", "Ingresó mal la contrasenia anterior.", AsistenteDeColores.getError());
+                    response.redirect(new Formatter().format("/gesoc/home/perfil", usuario.getId()).toString());//falta avisar que ingreso mal la contrasenia anterior
                 }
             }else{
-                this.setearModalAlerta(request, "Error en el cambio de contraseña", "Las contraseñas ingresadas no coinciden.", AsistenteDeColores.getError());
-                response.redirect(new Formatter().format("/gesoc/home/perfil", usuario.getId()).toString());//falta avisar que ignreso mal la confirmacion de la nueva contrasepña y agregar validaciones de contraseña segura
+                this.setearModalAlerta(request, "Error en el cambio de contrasenia", "Las contrasenias ingresadas no coinciden.", AsistenteDeColores.getError());
+                response.redirect(new Formatter().format("/gesoc/home/perfil", usuario.getId()).toString());//falta avisar que ignreso mal la confirmacion de la nueva contrasepña y agregar validaciones de contrasenia segura
             }
         }catch(Exception e){
-            this.setearModalAlerta(request, "Error en el cambio de contraseña", "Revise los datos ingresados.", AsistenteDeColores.getError());
+            this.setearModalAlerta(request, "Error en el cambio de contrasenia", "Revise los datos ingresados.", AsistenteDeColores.getError());
             response.redirect(new Formatter().format("/gesoc/home/perfil", usuario.getId()).toString());
         }
 
