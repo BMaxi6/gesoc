@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+     <script src="https://kit.fontawesome.com/3e1d6422ad.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/carga_egreso.css">
+    <link rel="stylesheet" href="/css/nuevo_proveedor.css">
+    <link rel="stylesheet" href="/css/menu_principal.css">
+    <link rel="stylesheet" href="/css/modal_mediano.css">
+    <style>
+       body{
+           background-color: floralwhite;
+        }
+      </style>
+    <title>Editar egreso</title>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--<script src="/js/ajax_edicion_egresos"></script>-->
+<!--<script src="/js/medios_de_pago.js"></script>-->
+<script>
+    function cargarArchivo(){
+        var archivo= document.getElementById("myfile").value;
+        var array= archivo.split("\\");
+        var nombreArchivo=array[array.length-1];
+        var input=document.getElementById("archivo_doc_comercial");
+        input.value=archivo;
+        var p= document.getElementById("nombre_archivo_documento");
+        p.innerHTML=nombreArchivo;
+    }
+</script>
+
+</head>
+  
+<body>
+
+<div id="nav_bar" class="row ">
+       
+    <div class="col-1"></div>
+    
+    <div class="col-1" ALIGN = left>
+        <a style="margin-top: 10px; font-size: 40px; color: black" class="fas fa-home" href="/gesoc/home"></a>
+    </div>
+    
+    <div class="col-6" ALIGN = left>
+        <h1>Edición de Operación de Egreso</h1>
+    </div>
+
+    <div class="col-2">
+        <div ALIGN=left>
+            <a href="/gesoc/bandeja_de_mensajes"><button class="botonRedondo" id="boton_nav_bar" class="btn"><i class="far fa-envelope"></i> Bandeja de Mensaje </button></a>
+        </div>
+    </div>
+    <div class="col-2">
+        <div ALIGN=left>
+            <a href="/gesoc/home/perfil"><button class="botonRedondo" id="boton_nav_bar" class="btn"><i class="fas fa-user-alt"></i>Mi Perfil</button></a>
+        </div>
+    </div>
+</div>
+
+{{#if mostrar_modal}} 
+
+<div id="modal_prueba" class="modal fade" role="dialog" >
+  <div class="modal-dialog" >
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:{{color_modal}};">
+        <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+        <h4 class="modal-title">{{modal_titulo}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{{aviso_modal}}</p>
+      </div>
+      <div class="modal-footer">
+        <button  type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+{{/if}}
+
+
+<div class = "row" id="label_caja">
+
+<div class="col-1"></div>
+
+<div class="col-10" id="div">
+
+    <form method="post" action="/gesoc/editar_egreso?id_egreso={{egreso.id}}">
+
+    <input id="lectura_items" name="lectura_items" style="display: none;">
+
+    <div class="row">
+        <div class="col-2">
+            <br><b>Número de Egreso:</b>
+        </div>
+        <div class="col-3">
+            <br><input name = "nro_operacion_egreso" value="{{egreso.numeroOp}}" type="text" style="width: inherit" disabled>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-3">
+            <br><b>Cantidad de Presupuestos Requeridos:</b>
+        </div>
+        <div class="col-3">
+            <br><input name = "cantidad_presupuestos_requeridos" value="{{egreso.cantidadPresupuestosRequeridos}}" type="text" style="width: 100%" disabled>
+        </div>
+    </div>
+
+    <div class="row">
+       <div class="col-2">
+       <br><b>Proveedor:</b>
+       </div>
+       <div class="col-3">
+        <br><input placeholder="{{egreso.proveedor.nombre}}" style="width: 100%" disabled>
+       </div>
+        <div class="col-1"></div>
+        <div class="col-3">
+            <br><b>Criterio de Selección de Presupuesto:</b>
+        </div>
+        <div class="col-3">
+            <br><input placeholder="{{criterio_de_seleccion}}" disabled style="width: 100%">
+        </div>
+    </div>
+    
+    <div class="row">
+       <div class="col-2">
+       <br><b>Fecha:</b>
+       </div>
+       <div class="col-3">
+        <br><input name="fecha" style="width: 100%" placeholder="{{egreso.fecha}}" disabled>
+       </div>
+        <div class="col-1">
+        </div>
+        <div class="col-3">
+            <br><b>Tipo de documento comercial:</b>
+        </div>
+        <div class="col-3">
+            <br><select name = "tipo_doc_comercial" style="width: inherit">
+                {{#each tipos_documentos}}
+                    {{#equals this tipo_documento }}
+                        <option selected value="{{this}}">{{this}}</option>
+                    
+                    {{else}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/equals}}
+                {{/each}}
+            </select>
+        </div>
+       </div>
+
+    <div class="row">
+        <div class="col-2">
+            <br><b>Número de pago:</b>
+        </div>
+        <div class="col-3">
+            <br><input name = "numero_pago" value="{{egreso.pago.numeroPago}}" type="text" style="width: inherit">
+        </div>
+
+        <div class="col-1"></div>
+        <div class="col-3">
+            <br><b>Número de documento comercial:</b>
+        </div>
+        <div class="col-3">
+            <br><input name="nro_doc_comercial" value="{{egreso.docComercial.numeroDocumento}}" type="text" style="width: inherit">
+        </div>
+       </div>
+
+    <div class="row">
+            <div class="col-2">
+                <br><b>Moneda:</b>
+            </div>
+            <div class="col-3">
+                <br>
+                <!--<select name = "moneda_id" style="width: inherit">
+                {{#each monedas}}
+                    <option  value="{{id}}">{{descripcion}}</option>
+                {{/each}}
+            </select>-->
+            <p>{{moneda.descripcion}}</p>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-3">
+            <br><b>Archivo adjunto:</b>
+        </div>
+            <div class="col-3">
+                <br>
+                <input id="archivo_doc_comercial" name="archivo_doc_comercial" style="display: none;" value="{{egreso.docComercial.path}}">
+
+            {{#if egreso.docComercial.path}}
+            <p id="nombre_archivo_documento">{{egreso.docComercial.path}}</p>
+            <a href="/gesoc/download?nombre_archivo={{egreso.docComercial.ubicacion}}" download><button class="botonRedondo" type="button">Descargar</button></a>
+            <a href="#nuevoArchivo"><button class="botonRedondo" type="button">Asociar nuevo archivo</button></a>
+            {{/if}}
+            {{#unless egreso.docComercial.path}}
+            <p id="nombre_archivo_documento">No posee.</p>
+            <a href="#nuevoArchivo"><button class="botonRedondo" type="button">Asociar nuevo archivo</button></a>
+            {{/unless}}
+        </div>
+        </div>
+
+    <div class="row">
+      <div class="col-2">
+            <br><b>Medio de pago:</b>
+        </div>
+        <div class="col-3">
+            <!--<br><select id="select_medio_pago" name = "medioDePago_id" style="width: inherit" onchange="verificarCamposTarjeta();">
+            {{#each mediosDePago}}
+                {{#if egreso.pago.medioDePago}}
+                <option value="{{this}}" selected>{{this}}</option>
+                {{/if}}
+            {{/each}}-->
+            <br><p>{{info_medio_pago}}</p>
+        </select>
+        </div>
+
+       <div class="col-1"></div>
+        <div class="col-3">
+            <br><b>Ser revisor:</b>
+        </div>
+        <div class="col-3">
+            <div class="row">
+                <div class="col-6">
+                    {{#if revisor}}
+                      <p>
+                        <br><input name = "revisor" type="radio" value="si" checked> Si
+                    </div>
+                    <div class="col-6">
+                        <br><input name = "revisor" type="radio" ALIGN="RIGHT" value="no"> No
+                        </p>
+                    {{/if}}
+
+                    {{#unless revisor}}
+                        <p>
+                            <br><input name = "revisor" type="radio" value="si"> Si
+                    </div>
+                    <div class="col-6">
+                        <br><input name = "revisor" type="radio" ALIGN="RIGHT" value="no" checked> No
+                        </p>
+                    {{/unless}}
+            </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--<div class="row">
+        <div class="col-2">
+            
+        </div>
+        <div class="col-4">
+            <div class="row">
+            <div class="col-6" id="col_numero_tarjeta">
+                <input type="text" id="numero_tarjeta" name="numero_tarjeta" placeholder="" style="display:inline;width: 100%;">
+            </div>
+            <div class="col-4" id="col_pagos_tarjeta">
+                <select id="pagos_tarjeta" name="pagos_tarjeta" name="" id=""style="display:inline;width: 100%;">
+                    {{#each opciones_de_pago}}
+                    <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            
+            <div class="col-2" id="col_tipo_pagos_tarjeta">
+                <select name="tipo_pagos_tarjeta" id="tipo_pagos_tarjeta" style="display:inline;width: 100%;">
+                    {{#each tipos_de_pago}}
+                    <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            </div>
+        </div>
+        <div class="col-6"></div>
+    </div>-->
+
+    <div class="row">
+        <div class="col-2">
+            <br><b>Descripción del pago:</b>
+        </div>
+        <div class="col-3">
+            <br><textarea name="descripcion_pago" style="width: inherit">{{egreso.pago.dato}}</textarea>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-1">
+            <br><b>Detalle:</b>
+        </div>
+        <div class="col-5">
+            <br><select multiple id="lista_items" name="lista_items" style="width: inherit">
+            {{#each egreso.items}}
+                <option>{{descripcion}}</option>
+            {{/each}}
+        </select>
+        </div>
+    </div>
+       
+    <div class="row" style="margin-bottom: 15px">
+           <div class="col-4"></div>
+           <div class="col-2">
+                <br><a href="/gesoc/cargar_egreso"><button class="botonRedondo" type="button" style="width: 100%; height: 40px">Cancelar</button></a>
+           </div>
+           <div class="col-2">
+                <br><button class="botonRedondo" onclick="cargarEgreso()" type="submit" style="width: 100%; height: 40px">Guardar</button>
+           </div>
+           <div class="col-4"></div>
+    </div>
+
+    </form>
+
+</div>
+
+<iframe name="hidden-iframe" style="display: none;"></iframe>
+<form action="/gesoc/upload" method="post" enctype="multipart/form-data" id="form_archivo" target="hidden-iframe">
+
+<div id="nuevoArchivo" class="modalDialogMediano">
+        <div>
+            <a href="#close" title="Close" class="close">X</a>
+            <h3 align = "center">Adjuntar archivo</h3>
+            <br><input id="myfile" name ="archivo" type="file" style="font-size: 17px" onchange="this.form.submit();"><br>
+            <br><a href="#close"><button type="button" class="botonRedondo" style="width: 100%" onclick="cargarArchivo();">Guardar</button></a>
+        </div>
+
+    </div>
+             
+</form>
+
+<div class="col-1"></div>
+
+</div>
+   
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script>$("#modal_prueba").modal();</script>
+  </body>
+</html>

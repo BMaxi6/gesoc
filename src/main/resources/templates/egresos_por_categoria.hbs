@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <script src="https://kit.fontawesome.com/3e1d6422ad.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/menu_principal.css">
+    <link rel="stylesheet" href="/css/carga_egreso.css">
+    <link rel="stylesheet" href="/css/nuevo_proveedor.css">
+    <script src="/js/egresos_por_categoria.js"></script>
+    <style>
+       body{
+            /*background-image: url('assets/fondoMadera.jpg');      */
+           background-color:floralwhite;
+        }
+    </style>
+
+    <title>Egresos por categoría</title>
+</head>
+<body onload="pedirCriterios()">
+<div id="nav_bar" class="row ">
+       
+    <div class="col-1"></div>
+    
+    <div class="col-1" ALIGN = left>
+        <a style="margin-top: 10px; font-size: 40px; color: black" class="fas fa-home" href="/gesoc/home"></a>
+    </div>
+    
+    <div class="col-6" ALIGN = left>
+        <h1>Egresos por categoría</h1>
+    </div>
+
+    <div class="col-2">
+        <div ALIGN=left>
+            <a href="/gesoc/bandeja_de_mensajes"><button id="boton_nav_bar" class="btn"><i class="far fa-envelope"></i> Bandeja de Mensaje </button></a>
+        </div>
+    </div>
+    <div class="col-2">
+        <div ALIGN=left>
+            <a href="/gesoc/home/perfil"><button id="boton_nav_bar" class="btn"><i class="fas fa-user-alt"></i>Mi Perfil</button></a>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="label_caja">
+    <div class="col-1"></div>
+
+    <div class="col-5" id = "div" style="height: 400px">
+        <div class="row">
+            <div class="col-3">
+                <br><b><label>Criterio:</label></b>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div id="eleccionCriterio" class="form-group">
+                    <label for="criterio"></label>
+                    <select class="form-control" id="criterioSelect" onclick="actualizarCategorias()"></select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <br><b><label>Categorías: *</label></b>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <input id="input_id_usuario" value="{{usuario.id}}" style="display: none">
+                        <div><select class="form-control" id="categoriasSeleccionables" style="width:100%"></select></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-12">
+                <p class="text-right">(*) Seleccionar una Categoría</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <button class="botonRedondo" style="width: 100%" onclick="mostrarEgresos()">Ver egresos</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-1"></div>
+
+    <div class="col-4" style="display: none" id="ListaDeEgresos">
+     <div id="div">
+         <div class="row">
+             <div class="col-12">
+                 <br><b><h3 id="titulo_tabla_egresos" class="text-center"></h3></b>
+             </div>
+        </div>
+
+         <div class="row" id="tabla_egresos" style="display: none; height: 500px">
+             <div id="tablaConScroll">
+                  <table id="egresos_categoria" style="width: 100%" class="table table-striped">
+                            <thead>
+                                <th>Número de egreso</th>
+                                <th>Fecha</th>
+                                <th>Valor Total</th>
+                            </thead>
+                            <tbody><tr></tr></tbody>
+                        </table>
+             </div>
+         </div>
+
+         <div class="row">
+             <div class="col-2"></div>
+             <div class="col-8">
+                 <br><a href="/gesoc/categorizar_egreso"><button class="botonRedondo" style="width: 100%">Agregar egresos a la categoría</button></a>
+             </div>
+         </div>
+        <br>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+.contenedor_login{
+
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+
+}
+#container_sign_in{
+    
+    
+    background-color: #C5DAFF;
+    vertical-align: 50%
+}
+#texto_sign_in{
+    width:100%;
+    text-align: center;
+}
+#body_sign_in{
+    background-color: floralwhite;
+}
+#imagen_log_in{
+    height: 20%;
+    width:20%;
+}

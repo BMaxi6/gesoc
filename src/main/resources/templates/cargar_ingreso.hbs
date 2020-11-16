@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+     <script src="https://kit.fontawesome.com/3e1d6422ad.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/carga_egreso.css">
+    <link rel="stylesheet" href="/css/nuevo_proveedor.css">
+    <link rel="stylesheet" href="/css/menu_principal.css">
+    <style>
+       body{
+           background-color:floralwhite;
+        }
+      </style>
+    <title>Cargar ingreso</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src='/js/handlebars-v4.7.6.js'></script>
+    
+        <script src="/js/Helper.js"></script>
+       <script id="address-template" type="text/x-handlebars-template">
+           
+        </script>
+       
+       <script>
+           let ids = [];
+           let idsEgresos=[];
+           var map= new Map();
+           
+            function asociarEgreso(){
+
+            let atributos = [];
+            document.querySelectorAll('#egreso_seleccionado thead th').forEach(elemento => {
+            atributos.push(elemento.innerText);
+            });
+
+            let datos = [];
+            document.querySelectorAll('#egreso_seleccionado tbody tr').forEach(fila => {
+
+            let dato = {};
+            atributos.forEach(campo => { dato[campo] = ''; });
+
+            fila.querySelectorAll('td').forEach((elemento, n) => {
+            let input = elemento.querySelector('input');
+
+            
+
+            if (input !== null && input.checked && !ids.includes(input.name)) {
+                dato[atributos[n]] = input.checked;
+                dato.id = input.id;
+                dato.name = input.name;
+                datos.push(dato);
+                ids.push(input.name);
+                //--------------------para la lista de ids egresos
+                map.set(input.name, input.value);
+                var objetoId=new Object();//creo un objeto para deserializar como con Gson del otro lado
+                objetoId.valor=input.value;
+                objetoId.otro=null;
+                idsEgresos.push(objetoId);
+                console.log("pusheo el id del egreso");
+                console.log(input.value);
+                console.log("la key es");
+                console.log(input.name);
+            }
+            });
+
+            });
+            
+                console.log(datos);
+            var select = document.getElementById("egresos_asociados");
+
+            for (value in datos) {
+                var option = document.createElement("option");
+                option.text = datos[value].name;
+                select.add(option);
+             }
+        }
+           
+        function mostrarEgresos(){
+            var x = document.getElementById('ListaEgresos');
+            if(x.style.display = 'none'){
+                x.style.display = 'inline';   
+            }else{
+                x.style.display = 'none'
+            }
+                
+        }
+           
+        function eliminarEgreso(){
+	        var select = document.getElementById("egresos_asociados");
+	        var i;
+	        for(i=select.options.length-1;i>=0;i--)
+	        {
+	            if(select.options[i].selected){
+                    var index=ids.indexOf(select.options[i]);
+                    ids.splice(index,1);
+                    
+                    var idEgresoEliminar=map.get(select.options[i].text);
+                    console.log("saco el id del egreso");
+                    console.log(idEgresoEliminar);
+                    console.log("la key es");
+                    console.log(select.options[i].text);
+                    var indexEgreso=idsEgresos.indexOf(idEgresoEliminar);
+                    idsEgresos.splice(indexEgreso,1);
+                    
+                    //console.log(select.options[i]);
+	                select.options[i] = null;
+	                break;
+	            }
+	        }
+        }
+        </script>
+
+        <script>
+        function cargarIngreso(){
+            document.getElementById("lectura_egresos").value = JSON.stringify(idsEgresos);
+        }
+        </script>
+
+  </head>
+<body>
+
+
+
+<div id="nav_bar" class="row ">
+       
+    <div class="col-1"></div>
+    
+    <div class="col-1" ALIGN = left>
+        <a style="margin-top: 10px; font-size: 40px; color: black" class="fas fa-home" href="/gesoc/home"></a>
+    </div>
+    
+    <div class="col-6" ALIGN = left>
+        <h1>Carga de Operación de Ingreso</h1>
+    </div>
+
+    <div class="col-2">
+        <div ALIGN=left>
+            <a href="/gesoc/bandeja_de_mensajes"><button id="boton_nav_bar" class="btn"><i class="far fa-envelope"></i> Bandeja de Mensaje </button></a>
+        </div>
+    </div>
+    <div class="col-2">
+        <div ALIGN=left>
+            <a href="/gesoc/home/perfil"><button id="boton_nav_bar" class="btn"><i class="fas fa-user-alt"></i>Mi Perfil</button></a>
+        </div>
+    </div>
+</div>
+
+<div class = "row" id="label_caja">
+
+<div class="col-1"></div>
+
+<div class="col-5" id="div">
+    <form  class="" action="/gesoc/nuevo_ingreso" method="post">
+
+    <div class="row">
+        <div class="col-4">
+            <br><b>Fecha: </b>
+        </div>
+        <div class="col-6">
+            <br><input name="fecha" type="date" style="width: inherit" required>
+        </div>
+    </div>
+
+    <div class="row">
+       <div class="col-4">
+           <br><b><label>Valor Total: </label></b>
+       </div>
+       <div class="col-6">
+           <br><input name="valor_total" type="text" style="width: inherit" required>
+       </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-4">
+            <br><b><label>Descripción:</label></b>               
+       </div>
+       <div class="col-6">
+           <br><textarea name="descripcion" style="width: inherit" required></textarea>
+       </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-4">
+            <br><b><label>Moneda:</label></b>
+        </div>   
+        <div class="col-6">
+            <br><select name="moneda_id" style="width: inherit" required>
+                {{#each monedas}}
+                    <option value="{{id}}">{{descripcion}}</option>
+                {{/each}}
+                </select>
+        </div>
+    </div>
+
+    <div class="row">
+       <div class="col-4">
+           <br><b><label>Fecha de aceptabilidad:</label></b>
+       </div>
+       <div class="col-6">
+          <br><input name="fecha_aceptabilidad" type="date" style="width: 100%" required>
+      </div>
+    </div>
+       
+    <div class="row">
+       <div class="col-4">
+           <br><b><label>Asociar Egreso/s:</label></b>
+       </div>
+       <div class="col-6">
+           <br><select multiple id="egresos_asociados" name="egreso_asociado" style="width: inherit">
+           </select>
+       </div>
+       <div class="col-2">
+           <br><a href="javascript:document.getElementById('ListaEgresos').style.display='inline';void0"><button type="button" class="botonRedondo" style="font-size: 14px; width: 100%">
+               <b>Asociar egreso</b>
+           </button></a><br>
+           <br><button type="button" onclick="eliminarEgreso();" class="botonRedondo" style="font-size: 16px; width: 100%">
+                <i class="fas fa-trash">Eliminar egreso</i>
+       </button>
+       </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 15px">
+        <input id="lectura_egresos" name="lectura_egresos" style="display: none;">
+        <div class="col-2"></div>
+        <div class="col-3">
+            <br><a href="/gesoc/home"><button class="botonRedondo" type="button" style="width: 100%">Cancelar</button></a>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-3">
+            <br><button  onclick="cargarIngreso();" type="submit" class="botonRedondo" style="width: 100%">
+                Finalizar
+            </button>
+        </div> 
+    </div>
+
+    </form>
+</div>
+
+<div class="col-5" style="display: none" id="ListaEgresos">
+   <div id="div" style="height:550px">
+        <div class="row">
+          <div class="col-1"></div>
+           <div class="col-10">
+
+                <table id="egreso_seleccionado" style="width: inherit" class="table table-striped">
+                   <thead>
+                   <tr>
+                       <th></th>
+                       <th>Número de egreso</th>
+                       <th>Fecha</th>
+                       <th>Valor Total</th>
+                   </tr>
+                   </thead>
+                   <tbody>
+                   {{#each egresos}}
+                   <tr>
+                       <td><input name="{{numeroOp}} {{fecha}} {{valorTotal}}" id="{{@index}}" value="{{id}}" type="checkbox" /></td>
+                       <td>{{numeroOp}}</td>
+                       <td>{{fecha}}</td>
+                       <td>{{valorTotal}}</td>
+                   </tr>
+                   {{/each}}
+                   </tbody>
+               </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-9"></div>
+            <div class="col-2">
+                <br><button onclick="asociarEgreso()" class="botonRedondo" style="width: 100%">
+                    Asociar
+                </button><br>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-1"></div>
+
+</div>

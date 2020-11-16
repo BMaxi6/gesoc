@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+     <script src="https://kit.fontawesome.com/3e1d6422ad.js" crossorigin="anonymous"></script>
+     <script src="/js/asociacion_ingreso_egreso.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/asociacion_ingreso_egreso.css">
+    <link rel="stylesheet" href="/css/menu_principal.css">
+    <!--<link rel="stylesheet" href="/css/cargar_presupuesto.css">-->
+    <style>
+       body{
+            /*background-image: url('assets/fondoMadera.jpg');      */
+           background-color:floralwhite;
+        }
+      </style>
+    <title>Asociación: Ingreso - Egreso</title>
+    
+  </head>
+  <body>
+<form method="post" action="/gesoc/vinculacion_ingreso_egreso" >
+<div id="nav_bar" class="row ">
+       
+    <div class="col-1"></div>
+    
+    <div class="col-1" ALIGN = left>
+        <a style="margin-top: 10px; font-size: 40px; color: black" class="fas fa-home" href="/gesoc/home"></a>
+    </div>
+    
+    <div class="col-6" ALIGN = left>
+        <h1>Asociación Ingreso - Egreso</h1>
+    </div>
+
+    <div class="col-2">
+        <div ALIGN=left>
+            <a href="/gesoc/bandeja_de_mensajes"><button id="boton_nav_bar" class="btn"><i class="far fa-envelope"></i> Bandeja de Mensaje </button></a>
+        </div>
+    </div>
+    <div class="col-2">
+        <div ALIGN=left>
+            <a href="/gesoc/home/perfil"><button id="boton_nav_bar" class="btn"><i class="fas fa-user-alt"></i>Mi Perfil</button></a>
+        </div>
+    </div>
+</div>
+
+
+  {{#if mostrar_modal}} 
+
+<div id="modal_prueba" class="modal fade" role="dialog" >
+  <div class="modal-dialog" >
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:{{color_modal}};">
+
+        <h4 class="modal-title">{{modal_titulo}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{{aviso_modal}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+{{/if}}
+
+
+  <div class="row">
+     <div class="col-1"></div>
+      <div class="col-4">
+         <div class= "container-fluid ml-5 mr -5 mt-5 mb-5" id="container_select" style="height: 500px;">
+          <h2 id="subtitle">Seleccionar ingreso:</h2>
+          
+           <br><select multiple name="lista_ingresos" id="select_ingresos" style="width: inherit;height: 350px;">
+                {{#each ingresos}}
+               <option value="{{id}}">Descripción: {{descripcion}} - Valor total:  {{valorTotal}} - Fecha:  {{fecha}}</option>
+               {{/each}}
+           </select>
+           
+        </div>
+        <div onclick="elegirIngreso();" class="btn" id="boton_tabla" >Asociar</div>
+      </div>
+      <dib class="col-2" style="text-align:center"></dib>
+      
+      <div class="col-4">  
+        <div class= "container-fluid ml-5 mr -5 mt-5 mb-5" id="container_select" style="height: 500px;">
+          <h2 id="subtitle">Seleccionar egreso:</h2>
+          
+           <br><select multiple name="lista_egresos" id="select_egresos" style="width: inherit;height: 350px;">
+               {{#each egresos}}
+               <option value="{{id}}">Num.:{{numeroOp}} - Valor total:  {{valorTotal}} - Proveedor: {{proveedor.nombre}} - Fecha: {{fecha}}</option>
+               
+               
+               {{/each}}
+           </select>
+           
+        </div> 
+        <div onclick="asociarEgreso();" type="button" class="btn" id="boton_tabla" >Asociar</div>
+      </div>
+      <div class="col-1"></div>
+  </div>
+  
+  <div class="row">
+      
+  </div>
+  
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+     <div class="container-fluid ml-5 mr -5 mt-5 mb-5" id="container_select"> 
+         <div class="row">
+         <div class="col-1">
+             <h2>Ingreso:</h2>
+         </div>
+         
+         <div class="col-5">
+             <table class="table" id="tabla_ingresos" >
+                <thead>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Valor total</th>
+                    <th scope="col">Valor restante</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Fecha aceptabilidad de Egreso</th>
+                    
+                    
+                          
+                </thead>
+                <tbody>
+        
+        
+                </tbody>
+                </table>
+                <br><p>Balance total:</p>
+                <p id="total_actual">$0</p>
+         </div>
+         <div class="col-1">
+             <h2>Egresos:</h2>
+         </div>
+         <div class="col-5">
+            <table class="table" id="tabla_egresos" >
+                <thead>
+                    <th scope="col">Num. egreso</th>
+                    <th scope="col">Valor total</th>
+                    <th scope="col">Proveedor</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col"></th>
+                    
+                          
+                </thead>
+                <tbody>
+        
+        
+                </tbody>
+                </table>
+             
+         </div>
+         </div>
+     </div>
+     </div>
+     <div class="col-1"></div>
+      
+  </div>
+  
+ <dib class="row" style="text-align:center;">
+   
+   <input id="ingreso_elegido" name="ingreso_elegido" type="text" style="display:none;">
+   <input id="egresos_elegidos" name="egresos_elegidos" type="text" style="display:none;">
+    <div class="col-5"></div>
+    <div class="col-2"><button onclick="cargarVinculacion();" type="submit" id="boton_tabla" >Realizar asociacion</button></div>
+    <div class="col-5"></div>
+    
+ </dib>
+  
+ 
+</form>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script>$("#modal_prueba").modal();</script>
+  </body>
+</html>

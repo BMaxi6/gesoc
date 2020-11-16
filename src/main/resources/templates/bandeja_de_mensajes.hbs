@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <script src="https://kit.fontawesome.com/3e1d6422ad.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/bandeja_de_mensajes.css">
+    <link rel="stylesheet" href="/css/carga_egreso.css">
+    <link rel="stylesheet" href="/css/menu_principal.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="/js/bandeja_mensajes.js"></script>
+
+    <style>
+       body{
+           background-color: floralwhite;
+        }
+      </style>
+      
+    <title>Bandeja de mensajes</title>
+</head>
+
+<body>
+
+<div id="nav_bar" class="row ">
+       
+    <div class="col-1"></div>
+    
+    <div class="col-1" ALIGN = left>
+        <a style="margin-top: 10px; font-size: 40px; color: black" class="fas fa-home" href="/gesoc/home"></a>
+    </div>
+    
+    <div class="col-6" ALIGN = left>
+        <h1>Bandeja de mensajes</h1>
+    </div>
+     
+    <div class="col-2">
+      </div>
+
+    <div class="col-2">
+        <div ALIGN=left>
+            <a href="/gesoc/home/perfil"><button id="boton_nav_bar" class="btn"><i class="fas fa-user-alt"></i>Mi Perfil</button></a>
+        </div>
+    </div>
+</div>
+
+ <div class="row" style="margin-top: 60px">
+    <div class="col-1">
+        <a href="/gesoc/bandeja_de_mensajes" style="margin-left: 80px"><button class="botonRedondo" type="button"><i class="fas fa-redo"></i></button></a>
+    </div>
+
+     <div class="col-1">
+        <a href="#modalFiltrar"><button style="margin-left: 10px; width: 100%" type="button" class="botonRedondo"><i class="fas fa-filter"></i>Filtrar</button></a>
+    </div>
+
+    <div class="col-1"></div>
+
+     <div class="col-5">
+             <input type="text" name="" value="" placeholder="Buscar" id="inputMensaje" style="height: 30px; width: 100%">
+     </div>
+
+</div>
+
+<div class="row" style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
+    <div class="col-12" class="misOperaciones" style="background-color: white; overflow-y: scroll; overflow-x: scroll; max-height: 650px; scrollCollapse: true">
+        <table style="width: 100%" id="tablaEgresos" class="table table-striped">
+            <thead style="font-size: 18px">
+            <th>Mensaje</th>
+            <th>Fecha</th>
+            <th>Fecha Leído</th>
+            <th>Marcar como leído</th>
+            <th>Eliminar mensaje</th>
+            </thead>
+
+            <tbody>
+            {{#each mensajes}}
+                <tr>
+                    <td>{{mensaje}}</td>
+                    <td>{{fechaCreacion}}</td>
+                    <td id="fechaLeido">{{fechaLeido}}</td>
+
+                    <td><a href = "/gesoc/marcar_leido?id_mensaje={{id}}"><button class="botonRedondo"><i class="far fa-eye"> Marcar como leído</i></button></a></td>
+
+                    <td><a href = "/gesoc/eliminar_mensaje?id_mensaje={{id}}"><button class="botonRedondo"><i class="fas fa-trash-alt"></i> Eliminar</button></a></td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div id="visualizarMensaje" class="modalDialog">
+        <div>
+            
+            <div id="label_caja_presupuesto">
+                
+                <div class="row">
+                   <div class="col-4"></div>
+                   <div class="col-4">
+                    <h3 id="titulo"></h3>
+                    </div>
+                    <div class="col-4"></div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8" style="font-size = 20px">
+                        <h2 style="font-size: 15px" id="mensaje"></h2>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+
+                <div class="row">
+                    <p id="fecha"></p>
+                </div>
+                
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <button onclick="cerrarModalYMarcarComoLeido()">
+                            ACEPTAR
+                        </button>
+                    </div>
+                    <div class="col-4"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+<div id="confirmacionEliminacion" class="modalDialog">
+        <div>
+           <a href="#close" title="Close" class="close">X</a>
+            <div id="label_caja_presupuesto">
+
+                <h3 align = "center">¿Está seguro de que desea eliminar este mensaje?</h3>
+
+                <div class="row">
+                    <div class="col-1"></div>
+
+                    <div class="col-4">
+                        <br><button type="button" name="button" class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+                    </div>
+
+                    <div class="col-2"></div>
+
+                    <div class="col-4">
+                        <br><button type="button" name="button" class="btn-rojo" onclick="eliminarUsuario()">Eliminar</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        
+
+</div>
+
+<form action="/gesoc/bandeja_de_mensajes/filtrado" method="GET">
+<div id="modalFiltrar" class="modalDialog">
+    <div>
+        <a href="#close" title="Close" class="close">X</a>
+        <div id="label_caja_presupuesto">
+
+            <h3 align = "center">Filtrar</h3>
+
+            <div class="row">
+                <b><label>Por fecha:</label></b>
+            </div>
+
+            <div class="row">
+
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <div class="row">
+
+                        <div class="col-4"><label>Desde:</label></div>
+
+                        <div class="col-8"><input name="fecha_inicio" type="date" required></div>
+                    </div>
+
+                     <div class="row">
+                        <div class="col-4"><label>Hasta:</label></div>
+
+                        <div class="col-8"><input name="fecha_final" type="date" required></div>
+
+                    </div>
+
+                </div>
+                <div class="col-2"></div>
+
+            </div>
+            
+
+            <br><div class="row">
+                <b><br><label>Por leído:</label></b>
+            </div>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <div class="row">
+                
+
+                        <div class="col-12">
+                            <select name="criterio_leido" id="" style="width: inherit;">
+                                <option value="TODOS">Todos</option>
+                                <option value="LEIDOS">Leídos</option>
+                                 <option value="NO_LEIDOS">No leídos</option>
+                            </select>
+                        </div>
+                
+            </div>
+                </div>
+                <div class="col-2"></div>
+            </div>
+            
+            
+            <br><br>
+            <div class="row">
+                <div class="col-4"></div>
+
+                <div class="col-4"><a href="#close"><button type="submit" class="botonRedondo" style="width: 100%" onclick="filtrar()">Aceptar</button></a></div>
+
+                <div class="col-4"></div>
+            </div>
+    </div>
+    </div>
+</div>
+</form>
+
+<script type="text/javascript">
+
+        function mostrarMensaje(mensajeRecibido, fechaCreacion)
+        {
+            var x = document.getElementById('visualizarMensaje');
+            x.style.display = 'inline';
+            document.getElementById('titulo').innerHTML = 'Mensaje';
+            document.getElementById('mensaje').innerHTML = mensajeRecibido;
+            document.getElementById('fecha').innerHTML = 'FECHA: ' + fechaCreacion;
+        }
+    
+        function cerrarModalYMarcarComoLeido()
+        {
+            document.getElementById('visualizarMensaje').style.display = 'none';
+            //document.getElementById('fechaLeido').innerHTML = Date.now();
+        }
+</script>
+
+</body>
+</html>

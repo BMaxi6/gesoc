@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Log in</title>
+
+    
+
+  
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/log_in.css" rel="stylesheet">
+    <style>
+        
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+    </style>
+    <!-- Custom styles for this template -->
+  </head>
+  
+  <body id="body_sign_in">
+  
+      <div class="row mt-5 mb-5"></div>
+      <div class="row mt-5 mb-5"></div>
+      
+<div id="container_sign_in" class="container border border-dark rounded" style="height: inherit; width: inherit">
+
+   <form class="form-signin" action="/login" method="post">
+    
+    
+   
+        <h1 id="texto_sign_in" class="h3 mb-3 font-weight-normal">Inicio de sesión</h1>
+        
+    
+ 
+  <input type="username" id="inputUser" class="form-control " name ="nombre_usuario" placeholder="Nombre de usuario" required autofocus>
+
+  <input type="password" id="inputPassword" class="form-control" name="contrasenia_usuario" style="margin-top:15px" placeholder="Contraseña" required>
+  <div class="checkbox mb-3">
+  
+    
+  
+  
+  <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-top: 60px">Iniciar sesión</button>
+  
+ 
+  
+        
+        
+   
+ 
+ </div>
+ 
+</form>
+</div>
+ <div class="row mt-5 mb-5"></div>
+  <div ALIGN=center> <img  id="imagen_log_in" src="/img/imagen_log_in.png" alt="">   </div>
+
+{{#if mostrar_modal}} 
+<div id="modal_prueba" class="modal fade" role="dialog" >
+  <div class="modal-dialog" >
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:{{color_modal}};">
+        <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+        <h4 class="modal-title">{{modal_titulo}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{{aviso_modal}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+{{/if}}
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script>$("#modal_prueba").modal();</script>
+
+
+</body>
+</html>

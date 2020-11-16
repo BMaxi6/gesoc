@@ -1,0 +1,42 @@
+.contenedorBusqueda div{
+    margin: 5%;
+    text-align: center;
+    display : flex;
+    flex-direction : row;
+    justify-content : space-around;
+    flex-flow : wrap;
+    text-align: center;
+}
+
+.centrado{
+    margin: 5%;
+    text-align: center;
+    display : flex;
+    flex-direction : row;
+    justify-content : space-around;
+    flex-flow : wrap;
+    text-align: center;
+}
+
+ul .boton{
+    width: 10px;
+    color: brown;
+}
+
+ul button{
+    display: inline;
+}
+
+ul li{
+    font-weight: normal;
+}
+
+.renglones{
+    display : inline;
+    flex-direction : row;
+    flex-flow : wrap;
+}
+
+ul{
+    font-weight: bold;
+}

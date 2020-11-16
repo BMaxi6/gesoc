@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <script src="https://kit.fontawesome.com/3e1d6422ad.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/carga_egreso.css">
+        <link rel="stylesheet" href="/css/nuevo_proveedor.css">
+        <link rel="stylesheet" href="/css/menu_principal.css">
+        <link rel="stylesheet" href="/css/menu_administrador.css">
+        <link rel="stylesheet" href="/css/alta_usuario.css">
+        <link rel="stylesheet" href="/css/bajaUsuario.css">
+        <style>
+            body{ background-color: white; }
+        </style>
+        <title>Alta Usuario</title>
+    
+    </head>
+
+
+    <header>
+        <div id="nav_bar" class="row ">
+       
+    <div class="col-1"></div>
+    
+    <div class="col-1" ALIGN = left>
+        <a style="margin-top: 10px; font-size: 40px; color: black" class="fas fa-home" href="/gesoc/administracion"></a>
+    </div>
+    
+    <div class="col-6" ALIGN = left>
+        <h1>Alta Usuarios</h1>
+    </div>
+     
+    <div class="col-2">
+         
+      </div>
+      
+    <div class="col-2" ALIGN=left>
+                <button id="boton_nav_bar" class="btn"><i class="fas fa-user-alt"></i><a href="/gesoc/administracion/admin">Mi Perfil</a></button>
+      </div>
+</div>
+    </header>
+
+
+    <body>
+        <div class="contenedorBusqueda">
+            <form action="/gesoc/crear_usuario" method="post">
+                <div class="form-group">
+                  <label for="Username">Nombre de usuario:</label>
+                  <input name="nombre_usuario"  class="form-control" id="Username" aria-describedby="userHelp" placeholder="Ingrese el nombre de usuario">
+                </div>
+                <hr>
+                <label for="Username">Contraseña:</label>
+                  <input name="contrasenia"  class="form-control" id="Username" aria-describedby="userHelp" placeholder="Ingrese la contraseña">
+                  <br>
+                  <input name="repeticion_contrasenia" class="form-control" id="Username" aria-describedby="userHelp" placeholder="Repita la contraseña">
+                <hr>
+                <label for="TipoUser">
+                    Tipo de Usuario:
+                </label>
+                <select name="tipo_usuario" class="form-control" id="UserType">
+                    <option id="ADMINISTRADOR" value="ADMINISTRADOR">Administrador</option>
+                    <option id="ADMINISTRADOR" value="USUARIO">Usuario</option>
+                </select>
+                <hr>
+                <label for="Org">Organizacion:</label>
+                
+                    
+                    <!--------->
+                      
+                        <div class="row">
+                        <div class="col-12">
+                            <input type="search" name="organizacion" list="lista_organizaciones" style="width:inherit;">
+                        </div>
+                        
+                        
+                        </div>
+
+                        
+                        <div class="row">
+                        <div class="col-12">
+                        <datalist id="lista_organizaciones" style="width:inherit;">
+                            {{#each organizaciones}} 
+                          <option value="{{id}}  {{nombreFicticio}}" style="width:100%;">
+                            {{/each}}
+
+                        </datalist>
+                        </div>
+                        </div>
+                        <!------->
+                
+                <hr>
+                <button type="submit" class="btn btn-secondary btn-lg btn-block">Registrar Usuario</button>
+                
+              </form>
+        </div>        
+    </body>
+</html>

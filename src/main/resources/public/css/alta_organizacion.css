@@ -1,0 +1,18 @@
+.contenedorBusqueda div{
+    margin: 5%;
+    text-align: center;
+    display : flex;
+    flex-direction : row;
+    justify-content : space-around;
+    flex-flow : wrap;
+    text-align: center;
+}
+
+a{
+    color: unset;
+    text-decoration: none;
+}
+
+a:hover{
+    color: unset;
+}

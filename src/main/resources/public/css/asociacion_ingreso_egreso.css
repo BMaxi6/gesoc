@@ -1,0 +1,49 @@
+
+
+
+#subtitle{
+    text-align: center;
+    
+}
+
+#select{
+    width: inherit;
+    height: 200px;
+    
+}
+
+#container_select{
+    background-color:#C5DAFF;
+    border-color: black;
+    border-radius: 15px;
+    padding: 20px;
+    height: inherit;
+  
+}
+
+#tabla_egresos{
+    background-color:white;
+    border-color: black;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+#tabla_ingresos{
+    background-color:white;
+    border-color: black;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+#boton_tabla{
+    background-color:#F66343;
+    border-color: black;
+    border-radius: 15px;
+    text-decoration-style: solid;
+    text-emphasis-color: black;
+    
+}
+
+#item_tabla{
+    text-align: right;
+}

@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+     <script src="https://kit.fontawesome.com/3e1d6422ad.js" crossorigin="anonymous"></script>
+      <script src="/js/ajax_presupuestos.js"></script>
+
+    <!--<link rel="stylesheet" href="/css/bootstrap.css">-->
+    <link rel="stylesheet" href="/css/carga_egreso.css">
+    <link rel="stylesheet" href="/css/nuevo_proveedor.css">
+    <link rel="stylesheet" href="/css/menu_principal.css">
+    <link rel="stylesheet" href="/css/cargar_presupuesto.css">
+    <link rel="stylesheet" href="/css/modal_mediano.css">
+    <style>
+       body{
+           background-color:floralwhite;
+        }
+
+        
+      </style>
+        <script type="text/javascript">
+  
+                              
+            function prueba(cadena){
+                console.log(cadena);
+            }
+
+            function mostrarEgresos()
+            {
+               var x = document.getElementById('ListaCategoriasAsociadas');
+                var y = document.getElementById('ListaDeEgresos');
+                if (x.style.display = 'inline') {
+                    x.style.display = 'none';    
+                } 
+                    y.style.display='inline';
+            }
+            function mostrarCategorias()
+            {
+               var x = document.getElementById('ListaCategoriasAsociadas');
+                var y = document.getElementById('ListaDeEgresos');
+                if (y.style.display = 'inline') {
+                    y.style.display = 'none';    
+                } 
+                    x.style.display='inline';
+            }
+            
+            function asociarEgreso()
+            {
+                var longitud = document.getElementById("lista_egresos").rows.length
+                if(longitud > 1){
+                    var tabla = document.getElementById("lista_egresos").rows;
+                    var nuevaTabla = "<table id='lista_egresos' style='width: inherit' class='table table-striped'><thead><tr><th scope='col'></th><th scope='col'>Número</th><th scope='col'>Fecha</th><th scope='col'>Valor total</th></tr></thead><tbody>"
+                    for (var i = 1; i < tabla.length; i++) {
+                        if(!document.getElementById(i-1).checked){
+                            nuevaTabla = nuevaTabla + "<tr>"
+                            nuevaTabla = nuevaTabla + tabla[i].innerHTML;
+                            nuevaTabla = nuevaTabla + "</tr>"
+                        }
+                    }
+                    nuevaTabla = nuevaTabla + "</tbody></table>"
+                    console.log(nuevaTabla);
+                    document.getElementById("lista_egresos").innerHTML = nuevaTabla;
+                    
+                }
+                
+            
+            }
+            
+            function obtenerItemAsociado(){
+                
+            }
+            
+        </script>
+
+    <script>
+
+        function cargarArchivo(){
+        var archivo= document.getElementById("myfile").value;
+        var array= archivo.split("\\");
+        var nombreArchivo=array[array.length-1];
+        var input=document.getElementById("archivo_doc_comercial");
+        input.value=archivo;
+        var p= document.getElementById("nombre_archivo_documento");
+        p.innerHTML=nombreArchivo;
+    }
+    </script>
+
+    <script>
+        function cambiarSelectTipoDocumento(tipo){
+            if(!!tipo){
+                var sel= document.getElementById("tipo_documento");
+                var index=0;
+
+                for(var i=0; i<sel.options.length;i++){
+                    if(sel.options[i].value==tipo){
+                        index=i;
+                    }
+                }
+                sel.selectedIndex=index;
+            }
+        }
+    </script>
+
+    <!--<script src="/js/paises.js"></script>-->
+    <title>Editar presupuesto</title>
+  </head>
+<body>
+
+    {{#if mostrar_modal}} 
+
+<div id="modal_prueba" class="modal fade" role="dialog" >
+  <div class="modal-dialog" >
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:{{color_modal}};">
+
+        <h4 class="modal-title">{{modal_titulo}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{{aviso_modal}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+{{/if}}
+
+  
+   <!--<div id="nuevoDocumentoComercial" class="modalDialog">
+    <div>
+		<a href="#close" title="Close" class="close">X</a>
+    <div id="label_caja_presupuesto">
+
+        <div style="height: inherit; width: inherit">
+    
+      <h3 align = "center">Nuevo Documento Comercial</h3>
+        
+        <div class="row">
+        <div class="col-5">
+            <br><b>Número de documento:</b>
+        </div>
+        <div class="col-7">
+            <br><input type="text" value="{{presupuesto.documento.numeroDocumento}}" id="numero_documento">
+        </div>
+        </div>
+        
+        <div class="row">
+        <div class="col-5">
+        <br><b>Tipo de documento:</b>
+        </div>
+        <div class="col-7">    
+        <br><select name="tipo_documento" id="tipo_documento">
+            {{#each tipos_documentos}} 
+            <option value="{{this}}">{{this}}</option>
+            {{/each}}
+        </select>
+        </div>
+        </div>
+        
+        <div class="row">
+        <div class="col-5">
+        <br><b>Fecha:</b>
+        </div>
+        <div class="col-7">
+        <br><input type="date" value="{{presupuesto.documento.fecha}}" id="fecha_documento" style="width: inherit">
+        </div>
+        </div>
+        
+        <div class="row">
+        <div class="col-5">
+        <br><b>Documento:</b>
+        </div>
+        <div class="col-7">
+            <iframe name="hidden-iframe" style="display: none;"></iframe>
+        <form action="/gesoc/upload" method="post" enctype="multipart/form-data" id="form_archivo" target="hidden-iframe">
+            <br><input id="archivo_documento" name ="archivo" type="file" style="font-size: 17px" onchange="this.form.submit();">
+             
+        </form>
+
+        
+        </div>
+        </div> 
+        
+        <div class="row">
+           <div class="col-2"></div>
+            <div class="col-4">
+                <br><a href="#close" ><button type="button" style="width: 100px; height: 40px">
+                    Cancelar
+                </button></a>
+            </div>
+            
+            <div class="col-4">
+                <br><a href="#close" ><button onclick="cargarDocumentoComercial();" type="button" style="width: 100px; height: 40px">
+                    Guardar
+                </button></a>
+            </div>
+        </div>    
+
+</div>
+</div>
+</div> 
+</div>-->
+
+<div id="nav_bar" class="row ">
+       
+    <div class="col-1"></div>
+    
+    <div class="col-1" ALIGN = left>
+        <a style="margin-top: 10px; font-size: 40px; color: black" class="fas fa-home" href="/gesoc/home"></a>
+    </div>
+    
+    <div class="col-6" ALIGN = left>
+        <h1>Edición de Presupuesto</h1>
+    </div>
+
+    <div class="col-2">
+        <div ALIGN=left>
+            <a href="/gesoc/bandeja_de_mensajes"><button id="boton_nav_bar" class="btn"><i class="far fa-envelope"></i> Bandeja de Mensaje </button></a>
+        </div>
+    </div>
+    <div class="col-2">
+        <div ALIGN=left>
+            <a href="/gesoc/home/perfil"><button id="boton_nav_bar" class="btn"><i class="fas fa-user-alt"></i>Mi Perfil</button></a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="row" id="label_caja"> 
+
+<div class="col-1"></div>
+
+
+<div class="col-10" id = "div" style="height: inherit;">
+    <form class="" action="/gesoc/editar_presupuesto?id_presupuesto={{presupuesto.id}}" method="post">
+    <input id="lectura_items" name="lectura_items" style="display: none;">
+    <input id="lectura_documento" name="lectura_documento" style="display: none;">
+    <input  id="id_egreso" name="id_egreso" value="{{egreso_asociado.id}}" style="display: none;">
+    <div class="row">
+        
+    
+       <table class="table">
+           <thead class="thead-dark">
+           <tr>
+               <th scope="col">Num. operación de egreso</th>
+               <th scope="col">Valor total</th>
+               <th scope="col">Fecha</th>
+               <th scope="col">Proveedor</th>
+           </tr>
+           </thead>
+
+           <tbody>
+               <tr>
+                   <td>{{presupuesto.operacion.numeroOp}}</td>
+                   <td>{{presupuesto.operacion.valorTotal}}</td>
+                   <td>{{presupuesto.operacion.fecha}}</td>
+                   <td>{{presupuesto.operacion.proveedor.nombre}}</td>
+               </tr>
+           </tbody>
+       </table>
+       
+    
+    
+    
+
+    
+    </div>
+      
+      <div class="row">
+       <div class="col-3">
+       <br><b><label>Proveedor:</label></b>
+       </div>
+       <div class="col-9">
+       
+           <br><p>{{presupuesto.proveedorP.nombre}}</p>
+       
+       </div>
+       
+    </div>
+    <div class="row">
+        <div class="col-3">
+       <br><b>Fecha:</b>
+       </div>
+       <div class="col-6">
+       <br><input name="fecha" type="date" value="{{presupuesto.fecha}}"style="width: inherit" required>
+       </div>
+       <div class="col-3"></div>
+    </div>
+    <div class="row">
+       <div class="col-3">
+           <br><b><label>Detalle:</label></b>
+       </div>
+        <div class="col-9">
+           <br><select multiple id="lista_items_presupuesto" name="lista_items" style="width: inherit">
+               {{#each presupuesto.items}}
+               <option value="">{{itemAsociado.descripcion}} - {{cantidad}}u. - ${{valorUnitario}}</option>
+               {{/each}}
+           </select>
+        </div>
+        
+    </div>
+    
+    <div class="row">
+      <div class="col-3">
+          <br><b><label>Seleccionado para compra:</label></b>
+       </div>
+       <div class="col-9">
+       {{#if presupuesto.elegido}}
+        <br><p>Si</p>
+       {{/if}}
+       {{#unless presupuesto.elegido}}
+        <br><p>No</p>
+       {{/unless}}
+       </div>
+    </div>
+    
+    
+        
+    
+    <div class="row">
+         <div class="col-3">
+       <br><b><label>Documento comercial:</label></b>
+       </div>
+       <div class="col-9">
+        
+                <div class="row">
+        <div class="col-5">
+            <br><b>Número de documento:</b>
+        </div>
+        <div class="col-7">
+            <br><input type="text" name="numero_documento" id="numero_documento" value="{{presupuesto.documento.numeroDocumento}}" style="width: inherit;">
+        </div>
+        </div>
+        
+        <div class="row">
+        <div class="col-5">
+        <br><b>Tipo de documento:</b>
+        </div>
+        <div class="col-7">    
+        <br><select name="tipo_documento" id="tipo_documento" style="width: inherit;">
+              {{#each tipos_documentos}}
+                    {{#equals this tipo_documento }}
+                        <option selected value="{{this}}">{{this}}</option>
+                    
+                    {{else}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/equals}}
+                {{/each}}
+        </select>
+        </div>
+        </div>
+        
+        <div class="row">
+        <div class="col-5">
+        <br><b>Fecha:</b>
+        </div>
+        <div class="col-7">
+        <br><input type="date" name="fecha_documento" id="fecha_documento" value="{{presupuesto.documento.fecha}}" style="width: inherit">
+        </div>
+        </div>
+        
+        <div class="row">
+        <div class="col-5">
+        <br><b>Documento:</b>
+        </div>
+        <div class="col-5">
+          {{#if presupuesto.documento.path}}
+          <br><p id="nombre_archivo_documento">{{presupuesto.documento.path}}</p>
+          {{/if}}
+          {{#unless presupuesto.documento.path}}
+          <br><p id="nombre_archivo_documento">No posee.</p>
+          {{/unless}}
+
+     
+        </div>
+        <div class="col-2">
+            <br><div class="row">
+                <div class="col-12">
+                    <a href="#nuevoArchivo" style="width: inherit;"><button type="button" class="botonRedondo" style="width: 100%;">Asociar nuevo archivo</button></a>
+                </div>
+                </div>
+            <br><div class="row">
+                <div class="col-12">
+                <a href="/gesoc/download?nombre_archivo={{presupuesto.documento.ubicacion}}" style="width: 100%;" download><button type="button" class="botonRedondo" style="width: inherit;">Descargar</button></a>
+                </div>
+                </div>
+        </div>
+        </div> 
+       </div>
+    </div>
+    
+    
+    
+
+    
+    
+    <div class="row" style="margin-bottom: 15px">
+        <div class="col-2"></div>
+        <div class="col-3">
+            <br><a href="/gesoc/cargar_presupuesto"></a><button type="button" class="botonRedondo" style="width: inherit">
+                Cancelar
+            </button></a>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-3">
+            <br><button onclick="cargarPresupuesto();" type="submit" class="botonRedondo" style="width: inherit">
+                Finalizar
+            </button>
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+    <input type="text" id="archivo_doc_comercial" name="archivo_doc_comercial"style="display: none">
+    </form>
+    </div>
+    <div class="col-1"></div>
+    
+</div>
+
+
+<div class="col-1"></div>
+
+<div class="col-4" style="display: none" id="ListaDeEgresos">
+   <div id="div" style="height: 700px">
+        <div class="row" style=" text-align:center;">
+                <!--<b><label style="margin: auto;">EGRESOS</label></b>-->
+        </div>
+        <div class="row">
+            <div class="col-12" style="overflow-y: scroll; overflow-x: scroll; max-height: 650px; height: 650px">
+                 <table id="lista_egresos" style="width: inherit" class="table table-striped">
+                <thead>
+                    <tr>
+                        <b><tr style="text-align: center;"><h3 align = "center">Operaciones de egreso</h3></tr></b>
+                        <th scope="col">Número</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Proveedor</th>
+                        <th scope="col">Valor total</th>
+                        
+                        
+                    </tr>
+                </thead>
+            <tbody>
+                {{#each egresosEntidad}}
+                   
+                   <tr>
+                      
+                        <td>{{numeroOp}}</td>
+                       <td>{{fecha}}</td>
+                       
+                       <td>{{proveedor.nombre}}</td>
+                       <td>{{valorTotal}}</td>
+                       <td><a href="/gesoc/cargar_presupuesto/{{id}}"><button type="button">Asociar</button></a></td>
+                   </tr>
+               {{/each}}
+               </tbody>
+        </table>
+            </div>
+        <!--</div>  
+        <!<div class="row">
+            <div class="col-9"></div>
+            <div class="col-2">
+                <br><button onclick = 'asociarEgreso()'>
+                    <a>Asociar</a>
+                </button><br>
+            </div
+        </div>-->
+    </div>
+</div>
+
+<div class="col-4" style="display: none" id="ListaCategoriasAsociadas">
+<div id="div" style="height: 760px">
+        <div class="row">
+            <b><label>CATEGORIAS</label></b>
+        </div>
+           <div class="row">
+            <div class="col-12" style="overflow-y: scroll; overflow-x: scroll; max-height: 650px; height: 650px">
+                 <table id="listaCategorias" style="width: inherit" class="table table-striped">
+                <thead>
+                    <tr>
+                       <th scope="col"></th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Criterio</th>
+                    </tr>
+                </thead>
+            <tbody>
+                {{#each categoriasEntidad}}
+                   <tr>
+                      <td><input type="checkbox" style="width: 20px;height: 20px"></td>
+                        <td>{{nombre}}</td>
+                       <td>{{descripcion}}</td>
+                       <td>{{criterio.nombre}}</td>
+                   </tr>
+               {{/each}}
+               </tbody>
+        </table>
+            </div>
+        </div>  
+        
+        <div class="row">
+            <div class="col-9"></div>
+            <div class="col-2">
+                <br><button>
+                    <a>Asociar</a>
+                </button><br>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<iframe name="hidden-iframe" style="display: none;"></iframe>
+<form action="/gesoc/upload" method="post" enctype="multipart/form-data" id="form_archivo" target="hidden-iframe">
+
+<div id="nuevoArchivo" class="modalDialogMediano">
+        <div>
+            <a href="#close" title="Close" class="close">X</a>
+            <h3 align = "center">Adjuntar archivo</h3>
+            <br><input id="myfile" name ="archivo" type="file" style="font-size: 17px" onchange="this.form.submit();"><br>
+            <br><a href="#close"><button type="button" class="botonRedondo" style="width: 100%" onclick="cargarArchivo();">Guardar</button></a>
+        </div>
+
+    </div>
+             
+</form>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    <script>$("#modal_prueba").modal();</script>
+</body>
+   
+  
+</html>
+

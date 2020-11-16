@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+     <script src="https://kit.fontawesome.com/3e1d6422ad.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/menu_principal.css">
+
+    <style>
+       body{
+            /*background-image: url('assets/fondoMadera.jpg');      */
+           background-color:floralwhite;
+        }
+      </style>
+    <title>Home</title>
+  
+  
+  </head>
+
+  <header>
+    <div id="nav_bar" class="row ">
+      <div class="col-1"></div>
+      <div class="col-7">
+           <div ALIGN=left>
+       <h1>GeSoc</h1>
+   </div>
+      </div>
+      
+      <div class="col-2">
+         <div ALIGN=left>
+             <a href="/gesoc/bandeja_de_mensajes"><button id="boton_nav_bar" class="btn"><i class="far fa-envelope"></i> Bandeja de Mensaje </button></a>
+          </div>
+      </div>
+      <div class="col-2">
+            <div ALIGN=left>
+                <a href="/gesoc/home/perfil"><button id="boton_nav_bar" class="btn"><i class="fas fa-user-alt"></i>Mi Perfil </button></a>
+            </div>
+      </div>
+  </div>
+  </header>
+
+  <body>
+  
+  <div class="row">
+  <div class="col-6">
+      
+  
+  <div class="row mt-5 mb-5">
+   <div class="col-1"></div>
+   
+    <div class="col-11">
+    
+    <div class="dropdown">
+  <button id="boton_principal_menu"type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown">
+    <font size=6>Operación de egreso</font>
+  </button>
+    <div class="dropdown-menu">
+        <a id="boton_dropdown" class="dropdown-item" href="/gesoc/cargar_egreso">Cargar nuevo egreso</a>
+        <a id="boton_dropdown" class="dropdown-item" href="/gesoc/categorizar_egreso">Asociar egreso a categoría</a>
+    </div>
+    </div>
+ </div>
+ 
+
+  </div>
+  
+  
+  
+  
+   <div class="row mt-5 mb-5">
+   <div class="col-1"></div>
+   
+    <div class="col-11">
+    
+    <div class="dropdown">
+  <button id="boton_principal_menu" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+   <font size=6>Operación de ingreso</font> 
+  </button>
+    <div class="dropdown-menu">
+        <a id="boton_dropdown" class="dropdown-item" href="/gesoc/cargar_ingreso">Cargar nuevo ingreso</a>
+        <a id="boton_dropdown" class="dropdown-item" href="/gesoc/asociar_ingreso_egreso">Asociar ingreso a egreso</a>
+    </div>
+    </div>
+ </div>
+ 
+
+  </div>
+   
+   <div class="row mt-5 mb-5">
+   <div class="col-1"></div>
+   
+    <div class="col-11">
+    
+    <div class="dropdown">
+  <button id="boton_principal_menu" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    <font size=6>Presupuesto</font>
+  </button>
+    <div class="dropdown-menu">
+        <a id="boton_dropdown" class="dropdown-item" href="/gesoc/cargar_presupuesto">Cargar nuevo presupuesto</a>
+        <a id="boton_dropdown" class="dropdown-item" href="/gesoc/categorizar_presupuesto">Asociar presupuesto a categoría</a>
+    </div>
+    </div>
+ </div>
+ 
+
+  </div>
+   
+    <div class="row mt-5 mb-5">
+   <div class="col-1"></div>
+   
+    <div class="col-11">
+    
+    <div class="dropdown">
+  <button id="boton_principal_menu" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    <font size=6>Criterios y categorías</font>
+  </button>
+    <div class="dropdown-menu">
+        <a id="boton_dropdown" class="dropdown-item" href="/gesoc/listado_criterios_categorias">Listado de criterios y categorías</a>
+        <a id="boton_dropdown" class="dropdown-item" href="/gesoc/edicion_criterios_categorias">Editar criterios y categorías</a>
+        <a id="boton_dropdown" class="dropdown-item" href="/gesoc/egresos_por_categoria">Egresos por categoría</a>
+        <a id="boton_dropdown" class="dropdown-item" href="/gesoc/presupuestos_por_categoria">Presupuestos por categoría</a>
+    </div>
+    </div>
+ </div>
+
+  </div>
+   
+    <div class="row mt-5 mb-5">
+   <div class="col-1"></div>
+   
+    <div class="col-11">
+
+  <div class="dropdown">
+    <button id="boton_principal_menu" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    <font size=6>Mis Operaciones</font>
+  </button>
+    <div class="dropdown-menu">
+        <a id="boton_dropdown" class="dropdown-item" href="/gesoc/listado_egresos">Operaciones de Egreso</a>
+        <a id="boton_dropdown" class="dropdown-item" href="/gesoc/listado_ingresos">Operaciones de Ingreso</a>
+        <a id="boton_dropdown" class="dropdown-item" href="/gesoc/listado_presupuestos">Presupuestos</a>
+    </div>
+    </div>
+
+    </div>
+ 
+ 
+ 
+     
+ 
+  </div>
+
+    <div class="row mt-5 mb-5">
+          <div class="col-1"></div>
+          <div class="col-11">
+              <a href="/gesoc/vinculo_operaciones">
+                  <button id="boton_principal_menu" type="button" class="btn btn-primary"  >
+                      <font size=6>Asociador de ingresos y egresos</font>
+                  </button>
+              </a>
+          </div>
+          <div class="row mt-5 mb-5">
+              <div class="col-1">
+              </div>
+          </div>
+      </div>
+    </div>
+    
+    <div class="col-6">
+        <div class="row mt-5">
+          <div class="col-12">
+           <div ALIGN=center>
+               <div id="container_datos" class="container"> 
+               <p id="titulo_container_datos">
+    Información de la entidad jurídica</p>
+     <p>Nombre: {{organizacion.nombreFicticio}}</p>
+     <p>Tipo de entidad jurídica: {{organizacion.descriptor}}</p>
+    <p>Código de inscripción en el IGJ: {{organizacion.codigoInscripcionIGJ}}</p>
+     <p>Dirección: {{organizacion.direccion.calle}} {{organizacion.direccion.altura}}</p>
+     <p>Código postal: {{organizacion.direccion.codigoPostal}}</p>
+               </div>
+           </div>
+           </div>
+            
+        </div>
+       <div class="row">
+       
+          <div class="col-12">
+          <div ALIGN=center> <img id="imagen_menu" src="/img/png_empresarial.png" alt="">   </div>
+          
+          </div>
+           
+       
+       
+       
+       </div>
+        
+    </div>
+  </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
+</html>

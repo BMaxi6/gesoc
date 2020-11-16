@@ -1,0 +1,32 @@
+#container_perfil{
+    background-color:#C5DAFF;
+    border-color: black;
+    border-radius: 15px;
+    padding: 20px;
+    height: inherit;
+    margin-top: 10;
+    font-size: 30px;
+    line-height: 100px;
+
+  
+}
+
+#boton_cambiar_contrasenia{
+    background-color:#F66343;
+    border-color: black;
+    border-radius: 15px;
+    text-decoration-style: solid;
+    text-emphasis-color: black;
+}
+
+#container_cambio_contrasenia{
+    text-align: center;
+}
+
+#texto_cambio_contrasenia{
+    font-size: 20px;
+}
+
+#form_cambio_contrasenia{
+    text-align: center;
+}

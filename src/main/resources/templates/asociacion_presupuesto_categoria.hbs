@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <script src="https://kit.fontawesome.com/3e1d6422ad.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/carga_egreso.css">
+    <link rel="stylesheet" href="/css/nuevo_proveedor.css">
+    <link rel="stylesheet" href="/css/menu_principal.css">
+    <script src="/js/ajax_presupuesto_categoria.js"></script>
+
+    <style>
+       body{
+           background-color: floralwhite;
+        }
+      </style>
+    <title>Categorización de Presupuestos</title>
+    
+    </head>
+<body onload="pedirCriterios()">
+
+<div id="nav_bar" class="row ">
+       
+    <div class="col-1"></div>
+    
+    <div class="col-1" ALIGN = left>
+        <a style="margin-top: 10px; font-size: 40px; color: black" class="fas fa-home" href="/gesoc/home"></a>
+    </div>
+    
+    <div class="col-6" ALIGN = left>
+        <h1>Asociación Presupuesto - Categoría</h1>
+    </div>
+     
+    <div class="col-2">
+         <div ALIGN=left>
+          <a href="/gesoc/bandeja_de_mensajes"><button id="boton_nav_bar" class="btn"><i class="far fa-envelope"></i> Bandeja de Mensaje </button></a>
+          </div>
+      </div>
+      
+    <div class="col-2" ALIGN=left>
+        <a href="/gesoc/home/perfil"><button id="boton_nav_bar" class="btn"><i class="fas fa-user-alt"></i>Mi Perfil</button></a>
+      </div>
+</div>
+
+<div id="asociarCategoria" class="modalDialog">
+    <div>
+    <div id="label_caja_presupuesto">
+
+        <div style="height: inherit; width: inherit;">
+        
+        <div class="row">
+            <div class="col-1"></div>
+            
+            <div class="col-10">
+                <br><label><b>Criterio:</b></label>
+            </div>
+           
+            <div class="col-1"></div>
+        </div>
+        
+        <div class="row"> 
+            <div class="col-1"></div>
+            
+            <div class="col-10">
+               <select id="criterioSelect" class="form-control" onclick="actualizarCategorias()" style="width: 100%"></select>
+            </div>
+           
+            <div class="col-1"></div>  
+            
+        </div>
+        
+        <div class="row">
+           <div class="col-1"></div>
+            
+            <div class="col-10">
+                <br><label><b>Categoría:</b></label>
+            </div>
+           
+            <div class="col-1"></div>
+            
+        </div>
+        
+                <div class="row"> 
+            <div class="col-1"></div>
+            
+            <div class="col-10">
+               <select id="select_categoria" class="form-control" style="width: 100%"></select>
+            </div>
+           
+            <div class="col-1"></div>  
+            
+        </div>
+
+        <div class="row">
+           <div class="col-2"></div>
+            <div class="col-4">
+                <br><a href="#close"><button class="botonRedondo" style="width: 100px; height: 40px">Cancelar</button></a>
+            </div>
+            
+            <div class="col-4">
+                <br><a href="#close"><button class="botonRedondo" style="width: 100px; height: 40px" type="submit" onclick="agregarCategoriaAlSelect()">Guardar</button></a>
+            </div>
+        </div>    
+
+</div>
+</div>
+</div> 
+</div>
+
+<div id="eliminarCategoria" class="modalDialog">
+    <div>
+        <div id="label_caja_presupuesto">
+
+            <div style="height: inherit; width: inherit;">
+
+                <div class="row">
+                    <div class="col-1"></div>
+
+                    <div class="col-10">
+                        <br><label><b>¿Está seguro que desea eliminar la categoría?</b></label>
+                    </div>
+
+                    <div class="col-1"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-1"></div>
+
+                    <div class="col-4">
+                        <br><a href="#close"><button class="botonRedondo" style="width: 100px; height: 40px">
+                        Cancelar
+                    </button></a>
+                    </div>
+
+                    <div class="col-2"></div>
+
+                    <div class="col-4">
+                        <br><a href="#close"><button class="botonRedondo" style="width: 100px; height: 40px" type="submit" onclick="eliminarCategoria()">Confirmar</button></a>
+                    </div>
+
+                    <div class="col-1"></div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-1"></div>
+
+    <div class="col-3" style="margin-top: 40px">
+        <input type="text" name="" value="" placeholder="Buscar" id="inputPresupuestoCat" class="botonRedondo" style="height: 30px; width: 100%">
+    </div>
+     <input id="input_id_usuario" value="{{usuario.id}}" style="display: none">
+</div>
+
+<form class="" action="/gesoc/presupuesto_categorias_nuevas" method="post">
+<div class="row" style="margin-top: 5px" id="label_caja">
+
+<div class="col-1"></div>
+
+<div class="col-5" id="tablaConScroll" style="height: 570px">
+<table id="tablaPresupuestosCat" style="width: inherit">
+  <thead>
+      <th>Proveedor</th>
+      <th>Operación de Egreso</th>
+      <th>Elegido</th>
+  </thead>
+    <tbody>
+        {{#each presupuestos}}
+        <tr>
+            <td><i class="fas fa-user"></i> {{proveedorP.nombre}}</td>
+            <td>{{operacion.numeroOp}}</td>
+            {{#if elegido}}
+                <td>Si</td>
+            {{/if}}
+            {{#unless elegido}}
+                <td>No</td>
+            {{/unless}}
+            <td>
+                <a onclick="pedirInfoPresupuesto({{id}})" name="button" style="margin:0px;" class="btn btn-border btn-border-blue" ><i class="far fa-eye"></i></a>
+            </td>
+        </tr>
+        {{/each}}
+        </tbody>
+   </table>
+</div>
+
+<div class="col-1"></div>
+
+<div class="col-4" style="display: none" id="InfoPresupuesto" >
+    <div id="tablaPresu" style="height: 750px">
+        <br><h4 ALIGN=CENTER>Presupuesto</h4>
+        <input style="display: none" id="idPresupuesto" name="idPresupuesto">
+        <label style="margin-left: 15px" id="proveedorPresupuesto"></label>
+        <br><label style="margin-left: 15px" id="fechaPresupuesto"></label>
+        <br><label style="margin-left: 15px" id="valorTotalPresupuesto"></label>
+        <br><label style="margin-left: 15px" id="elegidoPresupuesto"></label>
+        <br><label style="margin-left: 15px" id="egresoPresupuesto"></label>
+        <br><label style="margin-left: 15px" id="categoriasEgreso"></label>
+
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <select multiple id="categorias_egreso" style="width: 100%; overflow-x: scroll"></select>
+            </div>
+        </div>
+
+        <br><label style="margin-left: 15px" id="categoriasPresupuesto"></label>
+
+        <div class="row">
+          <div class="col-1"></div>
+              <div class="col-10">
+                  <input id="lectura_categorias" name="lectura_categorias" style="display: none;">
+                    <select multiple id="categorias_asociadas" style="width: 100%; overflow-x: scroll" onchange="habilitarBotonEliminar()"></select>
+           </div>
+           <div class="col-1"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-1"></div>
+            
+            <div class="col-4">
+                <br><a href="#eliminarCategoria"><button type="button" class="botonRedondo" style="width: 100%; font-size: 16px" id="botonEliminar" disabled>Eliminar categoría</button></a><br>
+                <br><a><button class="botonRedondo" type="button" style="width: 100%; height: 50px; font-size: 18px">Cancelar</button></a>
+            </div>
+            
+            <div class="col-2"></div>
+            
+            <div class="col-4">
+                <br><a href="#asociarCategoria"><button class="botonRedondo" type="button" style="width: 100%; font-size: 16px">Agregar categoría</button></a><br>
+                <br><a><button class="botonRedondo" onclick="guardarCambios()" type="submit" style="width: 100%; height: 50px; font-size: 18px">Guardar</button></a>
+            </div>
+            
+            <div class="col-1"></div>
+        </div>
+
+</div> 
+</div>
+     
+<div class="col-1"></div>
+
+</div>
+</form>
+
+{{#if mostrar_modal}} 
+
+<div id="modal_prueba" class="modal fade" role="dialog" >
+  <div class="modal-dialog" >
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:{{color_modal}};">
+
+        <h4 class="modal-title">{{modal_titulo}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{{aviso_modal}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+{{/if}}
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script>$("#modal_prueba").modal();</script>
+</body>
+</html>

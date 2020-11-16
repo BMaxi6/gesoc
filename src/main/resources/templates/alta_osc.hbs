@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <script src="https://kit.fontawesome.com/3e1d6422ad.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/carga_egreso.css">
+        <link rel="stylesheet" href="/css/nuevo_proveedor.css">
+        <link rel="stylesheet" href="/css/menu_principal.css">
+        <link rel="stylesheet" href="/css/menu_administrador.css">
+        <link rel="stylesheet" href="/css/alta_usuario.css">
+        <link rel="stylesheet" href="/css/bajaUsuario.css">
+        <link rel="stylesheet" href="/css/alta_empresa.css">
+        <style>
+            body{ background-color: white; }
+        </style>
+        <title>Alta OSC</title>
+        <script>
+            let empleadosGuardados = [];
+            let financiadoresGuardados = [];
+            let direccionStr;
+            function nuevaPersonaAjena(tipoPersona){
+                var ul = document.getElementById("added_" + tipoPersona);
+                var li = document.createElement("li");
+                var personaStr = document.getElementById(tipoPersona).value;
+                var persona = document.createTextNode(document.getElementById(tipoPersona).value);
+                if(persona != ""){
+                    li.appendChild(persona);
+                    ul.appendChild(li);
+                    var per = new Object();
+                    per.name = personaStr;
+                    if(tipoPersona=="empleados"){
+                            empleadosGuardados.push(per);
+                        } else {
+                            financiadoresGuardados.push(per);
+                        }
+                        document.getElementById(tipoPersona).value="";
+                }
+            }
+            function guardarDireccion(){
+                var direccion = new Object()
+                direccion.codigoPostal = document.getElementById("codigo_postal").value;
+                direccion.calle = document.getElementById("calle").value;
+                direccion.altura = document.getElementById("altura").value;
+                direccion.piso = document.getElementById("piso").value;
+                direccion.ciudadId = document.getElementById("ciudad_id").value;
+                direccion.paisId = document.getElementById("pais_id").value;
+                direccion.provinciaId = document.getElementById("provincia_id").value
+                direccionStr = JSON.stringify(direccion);
+                document.getElementById("boton_direccion").style.display = "none";
+                document.getElementById("mensaje_ok").style.display = "inline";
+            }
+            function guardarOrganizacion(){
+                document.getElementById("empleadosRet").value = JSON.stringify(empleadosGuardados);
+                document.getElementById("financiadoresRet").value = JSON.stringify(financiadoresGuardados);
+                document.getElementById("direccion").value = direccionStr;
+            }
+        </script>
+    </head>
+
+
+    <header>
+        <div id="nav_bar" class="row ">
+       
+    <div class="col-1"></div>
+    
+    <div class="col-1" ALIGN = left>
+        <a style="margin-top: 10px; font-size: 40px; color: black" class="fas fa-home" href="/gesoc/administracion"></a>
+    </div>
+    
+    <div class="col-6" ALIGN = left>
+        <h1>Alta OSC</h1>
+    </div>
+     
+    <div class="col-2">
+         
+      </div>
+      
+    <div class="col-2" ALIGN=left>
+                <button id="boton_nav_bar" class="btn"><i class="fas fa-user-alt"></i><a href="/gesoc/administracion/admin">Mi Perfil</a></button>
+      </div>
+</div>
+    </header>
+
+
+    <body>
+
+    <div id="guardarDireccion" class="modalDialog">
+        <div>
+		<!-- Boton X -->
+        <a href="#close" title="Close" class="close">X</a>
+        <!--         -->
+        <div id="label_direccion">
+        <div style="height: inherit; width: inherit">
+        <h3 align = "center">Dirección:</h3>
+            
+            <div class="row">
+            <div class="col-5">
+                <br><b>Código Postal:</b>
+            </div>
+            <div class="col-7">
+                <br><input name="codigo_postal" type="text" id="codigo_postal">
+            </div>
+            </div>
+            
+            <div class="row">
+            <div class="col-5">
+                <br><b>Calle:</b>
+            </div>
+            <div class="col-7">
+                <br><input name="calle" type="text" id="calle">
+            </div>
+            </div>
+            
+            <div class="row">
+            <div class="col-5">
+                <br><b>Altura:</b>
+            </div>
+            <div class="col-7">
+                <br><input name="altura" type="text" id="altura">
+            </div>
+            
+            <div class="row">
+            <div class="col-5">
+                <br><b>Piso:</b>
+            </div>
+            <div class="col-7">
+                <br><input name="piso" type="text" id="piso">
+            </div>
+            </div>
+            
+            <div class="row">
+            <div class="col-5">
+                <br><b>País:</b>
+            </div>
+            <div class="col-7">
+                <br><select id="pais_id" name="pais_id">
+                    {{#each paises}}
+                        <option  value="{{id}}">{{nombre}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            </div>
+            
+            <div class="row">
+            <div class="col-5">
+                <br><b>Provincia:</b>
+            </div>
+            <div class="col-7">
+                <br><select id="provincia_id" name="provincia_id">
+                    {{#each provincias}}
+                        <option  value="{{id}}">{{nombre}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            </div>
+            
+            <div class="row">
+            <div class="col-5">
+                <br><b>Ciudad:</b>
+            </div>
+            <div class="col-7">
+                <br><select id="ciudad_id" name="ciudad_id">
+                    {{#each ciudades}}
+                        <option  value="{{id}}">{{nombre}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            </div>   
+        
+            <div class="row">
+            <div class="col-1"></div>
+            <div class="col-4">
+                <br>
+                <button style="width: 100px; height: 40px">
+                    <a href="#close" title="Close">Cancelar</a>
+                </button>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-4">
+                <br><button onclick="guardarDireccion()" style="width: 100px; height: 40px">
+                    <a href="#close" title="Close">Guardar</a>
+                </button>
+            </div>
+            </div>    
+            </div>
+        </div>
+        </div> 
+        </div>
+    </div>
+
+<div>
+    <div class="contenedorBusqueda">
+        <label style="font-weight: bold;" for="direccion">Direccion:</label>
+        <br>
+        <p class="centrado">
+            <button id="boton_direccion">
+                <a href="#guardarDireccion">Agregar Dirección</a>
+            </button>
+        </p>
+        <p id="mensaje_ok" style="display: none;">Direccion Guardada</p>
+        <br>
+    </div>
+
+
+        <form action="/gesoc/confirmar_alta_osc" method="post">
+        <div class="contenedorBusqueda">
+                <input style="display: none;" id="empleadosRet" name="empleadosRet"></input>
+                <input style="display: none;" id="financiadoresRet" name="financiadoresRet"></input>
+                <input style="display: none;" id="direccion" name="direccion"></input>
+                
+                <div class="form-group">
+                  <label  for="razonSocial">Razon Social:</label>
+                  <input name="razon_social"  class="form-control" id="razonSocial" aria-describedby="userHelp" placeholder="Ingrese la razon social">
+                </div>
+                <hr>
+                <div class="form-group">
+                  <label  for="cuit">CUIT/CUIL:</label>
+                  <input name="cuit"  class="form-control" id="cuit" aria-describedby="userHelp" placeholder="Ingrese CUIT o CUIL">
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label  for="name">Nombre ficticio:</label>
+                    <input name="nombre_ficticio" class="form-control" id="name" aria-describedby="userHelp" placeholder="Ingrese el nombre ficticio">
+                  </div>
+                <hr>
+                
+                <hr>
+                <div class="form-group">
+                    <label for="igj">Código de inscripción IGJ:</label>
+                    <input name="codigo_inscripcion_igj"  class="form-control" id="igj" aria-describedby="userHelp" placeholder="Ingrese el código de inscripción">
+                  </div>
+                <hr>
+                <label for="actividad">Actividad:</label>
+                <select name="rubro" class="form-control" id="actividad">
+                    {{#each rubros}} 
+                    <option value="{{@index}}">{{this}}</option>
+                    {{/each}}
+                </select>
+                <hr>
+                <div class="form-group">
+                    <label for="cantPers">Cantidad de Personal</label>
+                    <input name="cantidad_personal"  class="form-control" id="cantPers" aria-describedby="userHelp" placeholder="Ingrese la cantidad de personal">
+                  </div>
+                <hr>
+
+                <label for="empleados">Empleados:</label>
+                <div class="input-group mb-3">
+                    <input id="empleados" type="text" class="form-control" placeholder="Agregue el nombre del empleado" aria-label="Agregue los usuarios" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" onclick="nuevaPersonaAjena('empleados')">Agregar</button>
+                    </div>
+                </div>
+                <div>
+                    <ul id="added_empleados">Empleados:</ul>
+                </div>
+                <hr>
+
+                <label for="financiadores">Financiadores</label>
+                <div class="input-group mb-3">
+                    <input id="financiadores" type="text" class="form-control" placeholder="Agregue los financiadores" aria-label="Agregue los usuarios" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" onclick="nuevaPersonaAjena('financiadores')">Agregar</button>
+                    </div>
+                </div>
+                <div>
+                    <ul  id="added_financiadores">Financiadores: </ul>
+                </div>
+                <hr>
+                <button onclick="guardarOrganizacion()" type="submit" class="btn btn-secondary btn-lg btn-block">Registrar Empresa</button>
+                <br>
+        </div>   
+        </form>     
+        </div>
+    </body>
+</html>
