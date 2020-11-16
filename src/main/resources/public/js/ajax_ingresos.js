@@ -37,18 +37,21 @@ function manejarEgresos(jsonEgresos){
 
     egresos_pedidos = JSON.parse(jsonEgresos);
 
-    var tbodyRef = document.getElementById('tablaEgresosIngreso').getElementsByTagName('tbody')[0];
-
     if(egresos_pedidos.length == 0){
+        document.getElementById('rowTabla').style.display = 'none';
         document.getElementById('tituloEgresos').innerHTML = 'Este ingreso no tiene ningún egreso asociado';
         document.getElementById('rowBoton').style.display = 'inline';
     }
     else{
+        document.getElementById('rowBoton').style.display = 'none';
+        var tbodyRef = document.getElementById('tablaEgresosIngreso').getElementsByTagName('tbody')[0];
+        tbodyRef.innerHTML = "";
+        document.getElementById('tituloEgresos').innerHTML = 'Operación de egreso';
+        document.getElementById('rowTabla').style.display = 'inline';
+
         var i;
         for(i=0; i<egresos_pedidos.length; i++){
 
-        document.getElementById('tituloEgresos').innerHTML = 'Operación de egreso';
-        document.getElementById('rowTabla').style.display = 'inline';
             var newRow = tbodyRef.insertRow(); //agrega fila
 
             var egreso = newRow.insertCell(); //agrega columna
@@ -63,15 +66,6 @@ function manejarEgresos(jsonEgresos){
             var egreso_valorTotal = document.createTextNode(egresos_pedidos[i].valorTotal);
             valorTotal.appendChild(egreso_valorTotal);
 
-            /*var celdaBoton = newRow.insertCell();
-            var botonEgresos = document.createElement('button');
-                botonEgresos.innerHTML = 'Ver más';
-                botonEgresos.id = "boton_tabla";
-                botonEgresos.type = "button";
-                botonEgresos.onclick = function(){
-                  mostrarEgreso(egreso.id);return false;
-                };
-                celdaBoton.appendChild(botonEgresos);*/
         }
     }
 }

@@ -178,12 +178,12 @@
         {{#each presupuestos}}
         <tr>
             <td><i class="fas fa-user"></i> {{proveedorP.nombre}}</td>
-            <td>{{operacion.numeroOp}}</td>
+            <td align="center">{{operacion.numeroOp}}</td>
             {{#if elegido}}
-                <td>Si</td>
+                <td align="center">Si</td>
             {{/if}}
             {{#unless elegido}}
-                <td>No</td>
+                <td align="center">No</td>
             {{/unless}}
             <td>
                 <a onclick="pedirInfoPresupuesto({{id}})" name="button" style="margin:0px;" class="btn btn-border btn-border-blue" ><i class="far fa-eye"></i></a>
@@ -197,7 +197,7 @@
 <div class="col-1"></div>
 
 <div class="col-4" style="display: none" id="InfoPresupuesto" >
-    <div id="tablaPresu" style="height: 750px">
+    <div id="tablaPresu" style="height: 800px">
         <br><h4 ALIGN=CENTER>Presupuesto</h4>
         <input style="display: none" id="idPresupuesto" name="idPresupuesto">
         <label style="margin-left: 15px" id="proveedorPresupuesto"></label>
@@ -230,7 +230,7 @@
             
             <div class="col-4">
                 <br><a href="#eliminarCategoria"><button type="button" class="botonRedondo" style="width: 100%; font-size: 16px" id="botonEliminar" disabled>Eliminar categoría</button></a><br>
-                <br><a><button class="botonRedondo" type="button" style="width: 100%; height: 50px; font-size: 18px">Cancelar</button></a>
+                <br><a><button class="botonRedondo" type="button" onclick="cerrarInfoPresupuesto()" style="width: 100%; height: 50px; font-size: 18px">Cancelar</button></a>
             </div>
             
             <div class="col-2"></div>

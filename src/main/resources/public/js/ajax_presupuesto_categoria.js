@@ -253,3 +253,6 @@ function guardarCambios(){
     document.getElementById("lectura_categorias").value = JSON.stringify(idsEnviar);
 }
 
+function cerrarInfoPresupuesto(){
+    document.getElementById("InfoPresupuesto").style.display = 'none';
+}

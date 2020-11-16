@@ -40,13 +40,8 @@
     let itemsAsociadosBorrados=[];
             
                     function agregarItem(jsonItemAsoc){
-                    console.log("entre");
-                        
-                        
-                        
+
                         var itemAsoc=JSON.parse(jsonItemAsoc);
-                        
-                        //console.log(JSON.stringify(itemAsociado));
 
                         var itemNuevo = new Object();
                         //itemNuevo.cantidad = document.getElementById("cantidad").value;
@@ -70,8 +65,6 @@
                         //itemNuevo.descripcion = document.getElementById("descripcion").value;
                         itemNuevo.descripcion = itemAsoc.descripcion;
                         //document.getElementById("descripcion").value = "";
-
-                        console.log(JSON.stringify(itemNuevo));
 
                         items.push(itemNuevo);
 
@@ -114,7 +107,6 @@ function cargarDocumentoComercial(){
     documentoComercial.fecha=document.getElementById("fecha_documento").value;
     documentoComercial.path=document.getElementById("archivo_documento").value;
 
-    console.log(JSON.stringify(documentoComercial));
     document.getElementById("texto_documento").innerHTML= "Num.: "+documentoComercial.numeroDocumento+ " - Tipo: "+ documentoComercial.tipo + " - Fecha: " + documentoComercial.fecha;
 }
 
@@ -122,14 +114,9 @@ function eliminarItemPresupuesto(){
     restaurarItemAsociadoDelSelect();
     var select= document.getElementById("lista_items_presupuesto");
     var id=select.value;
-    console.log( id);
-    console.log("entre a eliminar");
     var i;
     for(i=0; i<items.length;i++){
-        console.log("entre al for de eliminar");
         if(items[i].itemAsociado.id==id){
-            console.log("entre al if de eliminar");
-            console.log( JSON.stringify(items[i]));
             items.splice(i,1);
         }
     }

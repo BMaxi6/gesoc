@@ -14,8 +14,8 @@ public class PresupuestoCategoriasDTO {
     private int id;
     private int numeroEgreso;
     private String proveedor;
-    private Boolean elegido;
-    private BigDecimal valorTotal;
+    private String elegido;
+    private Double valorTotal;
     private String fecha;
     private List<Categoria> categorias = new ArrayList<Categoria>();
     private List<Categoria> categoriasEgresos = new ArrayList<>();
@@ -28,8 +28,12 @@ public class PresupuestoCategoriasDTO {
         }catch(Exception e){
             this.proveedor="---";
         }
-        this.valorTotal = BigDecimal.valueOf(presupuesto.valorTotal());
-        this.elegido = presupuesto.getElegido();
+        this.valorTotal = presupuesto.valorTotal();
+        if(presupuesto.getElegido()){
+            this.elegido = "Si";
+        }else {
+            this.elegido = "No";
+        }
         this.categorias = presupuesto.getCategorias();
         this.fecha = presupuesto.getFecha().toString();
         this.categoriasEgresos = presupuesto.getOperacion().getCategorias();
@@ -43,14 +47,6 @@ public class PresupuestoCategoriasDTO {
 
     public void setNumeroEgreso(int numeroEgreso) {
         this.numeroEgreso = numeroEgreso;
-    }
-
-    public BigDecimal getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
     }
 
     public String getFecha() {
@@ -87,14 +83,6 @@ public class PresupuestoCategoriasDTO {
         return categorias;
     }
 
-    public Boolean getElegido() {
-        return elegido;
-    }
-
-    public void setElegido(Boolean elegido) {
-        this.elegido = elegido;
-    }
-
     public void setCategorias(List<Categoria> categorias) {
         this.categorias = categorias;
     }
@@ -102,4 +90,20 @@ public class PresupuestoCategoriasDTO {
     public List<Categoria> getCategoriasEgresos() { return categoriasEgresos; }
 
     public void setCategoriasEgresos(List<Categoria> categoriasEgresos) { this.categoriasEgresos = categoriasEgresos; }
+
+    public String getElegido() {
+        return elegido;
+    }
+
+    public void setElegido(String elegido) {
+        this.elegido = elegido;
+    }
+
+    public Double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(Double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
 }

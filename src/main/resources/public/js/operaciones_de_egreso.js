@@ -60,12 +60,7 @@ function manejarPresupuestos(jsonPresupuestos){
             proveedor.appendChild(proveedor_nombre);
     
             var elegido = newRow.insertCell();
-            var elegido_p;
-            if(presupuestos_pedidos[i].elegido){
-                elegido_p = document.createTextNode('Si');
-            }else{
-                elegido_p = document.createTextNode('No');
-            }
+            var elegido_p = document.createTextNode(presupuestos_pedidos[i].elegido);
             elegido.appendChild(elegido_p);
         
             var valor_total = newRow.insertCell();
@@ -179,8 +174,8 @@ let items_pedidos = [];
 function manejarItems(jsonItems){
 
     items_pedidos = JSON.parse(jsonItems);
-    console.log(items_pedidos);
     var tbodyRef = document.getElementById('tablaItemsEgreso').getElementsByTagName('tbody')[0];
+    tbodyRef.innerHTML = "";
 
     var i;
      for(i=0; i<items_pedidos.length; i++){
@@ -332,14 +327,14 @@ let revisores_pedidas = [];
 function manejarRevisores(jsonRevisores){
 
     revisores_pedidas = JSON.parse(jsonRevisores);
+    var tbodyRef = document.getElementById('tablaRevisoresEgreso').getElementsByTagName('tbody')[0];
+    tbodyRef.innerHTML = "";
 
     if(revisores_pedidas.length == 0){
         document.getElementById('tituloRevisores').innerHTML = 'Este egreso no tiene ningun usuario revisor';
         document.getElementById('rowTablaRevisores').style.display = 'none';
     }
     else{
-        var tbodyRef = document.getElementById('tablaRevisoresEgreso').getElementsByTagName('tbody')[0];
-        tbodyRef.innerHTML = "";
         document.getElementById('tituloRevisores').innerHTML = 'Usuarios revisores';
         document.getElementById('rowTablaRevisores').style.display = 'inline';
 

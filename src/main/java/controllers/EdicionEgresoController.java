@@ -150,54 +150,55 @@ public class EdicionEgresoController implements Controlador {
     }*/
 
  public Response editarEgreso(Request request, Response response) throws IOException {
-     int idUsuario= request.session().attribute("usuario_id");
-     Usuario usuario= FactoryRepositorio.instancia().obtenerRepositorio(Usuario.class).buscar(idUsuario);
+     int idUsuario = request.session().attribute("usuario_id");
+     Usuario usuario = FactoryRepositorio.instancia().obtenerRepositorio(Usuario.class).buscar(idUsuario);
 
-        Repositorio<OperacionDeEgreso> repoEgresos= FactoryRepositorio.instancia().obtenerRepositorio(OperacionDeEgreso.class);
-        int idEgreso=Integer.parseInt(request.queryParams("id_egreso"));
-        OperacionDeEgreso egreso=repoEgresos.buscar(idEgreso);
-        int numeroPago;
+     Repositorio<OperacionDeEgreso> repoEgresos = FactoryRepositorio.instancia().obtenerRepositorio(OperacionDeEgreso.class);
+     int idEgreso = Integer.parseInt(request.queryParams("id_egreso"));
+     OperacionDeEgreso egreso = repoEgresos.buscar(idEgreso);
+     int numeroPago;
 
+     String descPago, pathDocComercial;
+     TipoDocumentoComercial tipoDocComercial;
+     String revisor, numeroDocComercial;
+     try {
+         numeroPago = Integer.parseInt(request.queryParams("numero_pago"));
 
-        String descPago, pathDocComercial;
-        TipoDocumentoComercial tipoDocComercial;
-        String revisor, numeroDocComercial;
-        try{
-            numeroPago=Integer.parseInt(request.queryParams("numero_pago"));
-
-            descPago= request.queryParams("descripcion_pago");
-            tipoDocComercial = TipoDocumentoComercial.toTipoDocumentoComercial(request.queryParams("tipo_doc_comercial"));
-            numeroDocComercial= request.queryParams("nro_doc_comercial");
-            pathDocComercial=request.queryParams("archivo_doc_comercial");
-
-
-            revisor = request.queryParams("revisor");
+         descPago = request.queryParams("descripcion_pago");
+         tipoDocComercial = TipoDocumentoComercial.toTipoDocumentoComercial(request.queryParams("tipo_doc_comercial"));
+         numeroDocComercial = request.queryParams("nro_doc_comercial");
+         pathDocComercial = request.queryParams("archivo_doc_comercial");
+         revisor = request.queryParams("revisor");
 
 
-        }catch(Exception e){
-            response.redirect("/gesoc/editar_egreso?id_egreso=" + idEgreso);
-            this.setearModalAlerta(request, "Error en la edición de la Operación de Egreso.", "Ha ocurrido un error al confirmar la edición de la operación, revise los datos cargados y vuelva a intentar.",AsistenteDeColores.getError());
+     } catch (Exception e) {
+         response.redirect("/gesoc/editar_egreso?id_egreso=" + idEgreso);
+         this.setearModalAlerta(request, "Error en la edición de la Operación de Egreso.", "Ha ocurrido un error al confirmar la edición de la operación, revise los datos cargados y vuelva a intentar.", AsistenteDeColores.getError());
 
-            return  response;
-        }
-
-
-
-        egreso.getPago().setNumeroPago(numeroPago);
-
-        egreso.getPago().setDato(descPago);
-        if(egreso.getDocComercial()==null){
-            egreso.setDocComercial(new DocumentoComercial());
-        }
-        egreso.getDocComercial().setTipo(tipoDocComercial);
-        egreso.getDocComercial().setNumeroDocumento(numeroDocComercial);
-        egreso.getDocComercial().setPath(pathDocComercial);
-        egreso.getDocComercial().setPath(ArchivoController.obtenerNombreArchivo(pathDocComercial));
+         return response;
+     }
 
 
+     egreso.getPago().setNumeroPago(numeroPago);
 
-     if(!revisor.equals("si")){
-         egreso.eliminarRevisor(usuario);
+     egreso.getPago().setDato(descPago);
+     if (egreso.getDocComercial() == null) {
+         egreso.setDocComercial(new DocumentoComercial());
+     }
+     egreso.getDocComercial().setTipo(tipoDocComercial);
+     egreso.getDocComercial().setNumeroDocumento(numeroDocComercial);
+     egreso.getDocComercial().setPath(pathDocComercial);
+     egreso.getDocComercial().setPath(ArchivoController.obtenerNombreArchivo(pathDocComercial));
+
+
+     if (revisor.equals("si")) {
+         if (!egreso.esRevisor(usuario)) {
+             egreso.agregarRevisor(usuario);
+         }
+     } else {
+         if(egreso.esRevisor(usuario)){
+             egreso.eliminarRevisor(usuario);
+         }
      }
 
      repoEgresos.modificar(egreso);

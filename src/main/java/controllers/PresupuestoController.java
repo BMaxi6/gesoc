@@ -2,6 +2,7 @@ package controllers;
 
 import DTOs.DocumentoComercialDto;
 import DTOs.EgresoCategoriasDTO;
+import DTOs.ItemPresupuestoDto;
 import DTOs.PresupuestoCategoriasDTO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -246,9 +247,10 @@ public class PresupuestoController implements Controlador{
         int idPresupuesto = Integer.parseInt(request.queryParams("id_presupuesto"));
         Presupuesto presupuesto = FactoryRepositorio.instancia().obtenerRepositorio(Presupuesto.class).buscar(idPresupuesto);
 
-        List<ItemPresupuesto> items = presupuesto.getItems();
+        Type listType = new TypeToken<ArrayList<ItemPresupuestoDto>>(){}.getType();
+        List<ItemPresupuestoDto> items = presupuesto.getItems().stream().map(i -> ItemPresupuestoDto.toItemPresupuestoDto(i)).collect(Collectors.toList());
         Gson gson = new Gson();
-        String jsonItems = gson.toJson(items);
+        String jsonItems = gson.toJson(items, listType);
         response.type("application/json");
 
         return jsonItems;

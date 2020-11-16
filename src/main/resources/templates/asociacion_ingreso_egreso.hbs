@@ -37,12 +37,12 @@
 
     <div class="col-2">
         <div ALIGN=left>
-            <a href="/gesoc/bandeja_de_mensajes"><button id="boton_nav_bar" class="btn"><i class="far fa-envelope"></i> Bandeja de Mensaje </button></a>
+            <a href="/gesoc/bandeja_de_mensajes"><button id="boton_nav_bar" type="button" class="btn"><i class="far fa-envelope"></i> Bandeja de Mensaje </button></a>
         </div>
     </div>
     <div class="col-2">
         <div ALIGN=left>
-            <a href="/gesoc/home/perfil"><button id="boton_nav_bar" class="btn"><i class="fas fa-user-alt"></i>Mi Perfil</button></a>
+            <a href="/gesoc/home/perfil"><button id="boton_nav_bar" type="button" class="btn"><i class="fas fa-user-alt"></i>Mi Perfil</button></a>
         </div>
     </div>
 </div>
@@ -78,7 +78,7 @@
          <div class= "container-fluid ml-5 mr -5 mt-5 mb-5" id="container_select" style="height: 500px;">
           <h2 id="subtitle">Seleccionar ingreso:</h2>
           
-           <br><select multiple name="lista_ingresos" id="select_ingresos" style="width: inherit;height: 350px;">
+           <br><select multiple name="lista_ingresos" id="select_ingresos" style="width: inherit; height: 350px; overflow-x: scroll">
                 {{#each ingresos}}
                <option value="{{id}}">Descripción: {{descripcion}} - Valor total:  {{valorTotal}} - Fecha:  {{fecha}}</option>
                {{/each}}
@@ -93,7 +93,7 @@
         <div class= "container-fluid ml-5 mr -5 mt-5 mb-5" id="container_select" style="height: 500px;">
           <h2 id="subtitle">Seleccionar egreso:</h2>
           
-           <br><select multiple name="lista_egresos" id="select_egresos" style="width: inherit;height: 350px;">
+           <br><select multiple name="lista_egresos" id="select_egresos" style="width: inherit;height: 350px; overflow-x: scroll">
                {{#each egresos}}
                <option value="{{id}}">Num.:{{numeroOp}} - Valor total:  {{valorTotal}} - Proveedor: {{proveedor.nombre}} - Fecha: {{fecha}}</option>
                

@@ -142,7 +142,6 @@ var egresos_pedidos = [];
 function manejarEgresos(jsonEgresos){
         document.getElementById('ListaDeEgresos').style.display = 'inline';
         egresos_pedidos = JSON.parse(jsonEgresos);
-        console.log(egresos_pedidos);
 
         if(egresos_pedidos.length == 0){
             document.getElementById('titulo_tabla_egresos').innerHTML = 'No hay egresos con esta categoría';

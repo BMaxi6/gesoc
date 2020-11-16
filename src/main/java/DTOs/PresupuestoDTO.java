@@ -9,8 +9,8 @@ import java.time.LocalDate;
 public class PresupuestoDTO {
     private int id;
     private String proveedor;
-    private Boolean elegido;
-    private BigDecimal valorTotal;
+    private String elegido;
+    private Double valorTotal;
     private String fecha;
 
     public PresupuestoDTO(Presupuesto presupuesto){
@@ -20,8 +20,12 @@ public class PresupuestoDTO {
         }catch(Exception e){
             this.proveedor="---";
         }
-        this.valorTotal = BigDecimal.valueOf(presupuesto.valorTotal());
-        this.elegido = presupuesto.getElegido();
+        this.valorTotal = presupuesto.valorTotal();
+        if(presupuesto.getElegido().equals(Boolean.TRUE)){
+           this.elegido = "Si";
+        }else{
+            this.elegido = "No";
+        }
         this.fecha = presupuesto.getFecha().toString();
     }
 
@@ -47,27 +51,27 @@ public class PresupuestoDTO {
         this.proveedor = proveedor;
     }
 
-    public Boolean getElegido() {
-        return elegido;
-    }
-
-    public void setElegido(Boolean elegido) {
-        this.elegido = elegido;
-    }
-
-    public BigDecimal getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
-    }
-
     public String getFecha() {
         return fecha;
     }
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    public String getElegido() {
+        return elegido;
+    }
+
+    public void setElegido(String elegido) {
+        this.elegido = elegido;
+    }
+
+    public Double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(Double valorTotal) {
+        this.valorTotal = valorTotal;
     }
 }

@@ -288,4 +288,8 @@ public class OperacionDeEgreso extends Persistente {
         items.add(item);
         this.ValorTotal+=item.valorTotal();
     }
+
+    public boolean esRevisor(Usuario usuario){
+        return this.getRevisores().contains(usuario);
+    }
 }

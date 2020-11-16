@@ -58,12 +58,6 @@ function mostrarCategorias(jsonCategorias){
             var categoria_nombre = document.createTextNode(categorias_pedidas[i].nombre);
             nombreCategoria.appendChild(categoria_nombre);
 
-            if(categorias_pedidas[i].descripcion != ''){
-                var descripcionCategoria = newRow.insertCell();
-                var categorias_descripcion = document.createTextNode(categorias_pedidas[i].descripcion);
-                descripcionCategoria.appendChild(categorias_descripcion);
-            }
-
         }
     }
 
@@ -142,7 +136,7 @@ function mostrarSubCriterios(jsonSubCriterios){
 
         var tbodyRef = document.getElementById('tablaSubCriterios').getElementsByTagName('tbody')[0];
 
-            tbodyRef.innerHTML = "";
+        tbodyRef.innerHTML = "";
 
             var i;
             for(i=0; i<subCriterios_pedidos.length; i++){

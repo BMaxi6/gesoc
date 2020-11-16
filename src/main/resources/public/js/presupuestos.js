@@ -72,6 +72,7 @@ function manejarItems(jsonItems){
     items_pedidos = JSON.parse(jsonItems);
 
     var tbodyRef = document.getElementById('tablaItemsPresupuesto').getElementsByTagName('tbody')[0];
+    tbodyRef.innerHTML = "";
 
     var i;
      for(i=0; i<items_pedidos.length; i++){

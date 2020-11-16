@@ -80,12 +80,8 @@
                 <td>{{moneda.descripcion}}</td>
                 <td>{{fechaDeAceptabilidadEgreso}}</td>
 
-                {{#if egresos}}
-                    <td><a href="#modalEgresos"><button class="botonRedondo" onclick="pedirEgresos({{id}})">Ver egresos</button></a></td>
-                {{/if}}
-                {{#unless egresos}}
-                    <td><a href="#modalNoEgresos"><button class="botonRedondo">Ver egresos</button></a></td>
-                {{/unless}}
+                <td><a href="#modalEgresos"><button class="botonRedondo" onclick="pedirEgresos({{id}})">Ver egresos</button></a></td>
+
 
             </tr>
         {{/each}}
@@ -126,12 +122,12 @@
 
         <div class="row" id="rowBoton" style="display:none">
             <div class="col-3"></div>
-            <a href="/gesoc/cargar_presupuesto"><button class="botonRedondo" id="botonPresupuestos" style="width: 100%">Agregar presupuesto/s</button></a>
+            <a href="/gesoc/asociar_ingreso_egreso"><button class="botonRedondo" id="botonPresupuestos" style="width: 100%">Agregar egreso/s</button></a>
         </div>
     </div>
 </div>
 
-<div id="modalNoEgresos" class="modalDialog">
+<!-- <div id="modalNoEgresos" class="modalDialog">
     <div>
         <a href="#close" title="Close" class="close">X</a>
         <div id="label_caja_presupuesto">
@@ -149,7 +145,7 @@
 
         </div>
     </div>
-</div>
+</div> -->
             
 
 </body>

@@ -45,15 +45,22 @@ public class SparkRouter {
     public static void init() {
         SparkRouter.initEngine();
         Spark.staticFileLocation("/public");
-
         SparkRouter.configure();
     }
 
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
+    }
+
     public static void main(String[] args) throws Exception {
-        //AsistentePlanificacionValidadorTransparencia.instancia();
+        AsistentePlanificacionValidadorTransparencia.instancia();
         Spark.port(getHerokuAssignedPort());
         SparkRouter.init();
-        DebugScreen.enableDebugScreen();
+        //DebugScreen.enableDebugScreen();
 
         LogInController logInController= new LogInController();
         HomeController homeController= new HomeController();
@@ -216,14 +223,6 @@ public class SparkRouter {
         Spark.get("/gesoc/download",archivoController::descargarArchivo);
 
         Spark.get("/error_logueo", ControllerError::mostrarBloqueoLogin, SparkRouter.engine);
-    }
-
-    static int getHerokuAssignedPort() {
-        ProcessBuilder processBuilder = new ProcessBuilder();
-        if (processBuilder.environment().get("PORT") != null) {
-            return Integer.parseInt(processBuilder.environment().get("PORT"));
-        }
-        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
     }
 
 
@@ -389,6 +388,7 @@ public class SparkRouter {
         Spark.get("/gesoc/download",archivoController::descargarArchivo);
 
         Spark.get("/error_logueo", ControllerError::mostrarBloqueoLogin, SparkRouter.engine);
+
     }
 
 }

@@ -7,10 +7,10 @@ import spark.debug.DebugScreen;
 public class SparkServer {
 
     public static void main(String[] args) {
-        //AsistentePlanificacionValidadorTransparencia.instancia();
+        AsistentePlanificacionValidadorTransparencia.instancia();
         Spark.port(getHerokuAssignedPort());
         SparkRouter.init();
-        DebugScreen.enableDebugScreen();
+        //DebugScreen.enableDebugScreen();
     }
 
     static int getHerokuAssignedPort() {

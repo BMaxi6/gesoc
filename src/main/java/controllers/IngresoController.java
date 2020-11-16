@@ -39,6 +39,7 @@ public class IngresoController implements Controlador{
         parametros.put("monedas", monedas);
         parametros.put("egresos", egresosOrganizacion);
 
+        AsistenteDeModales.configurarParametros(this,request, parametros);
         return new ModelAndView(parametros, "cargar_ingreso.hbs");
     }
 
@@ -63,6 +64,7 @@ public class IngresoController implements Controlador{
             fecha = LocalDate.parse(request.queryParams("fecha"));
             fechaAceptabilidad = LocalDate.parse(request.queryParams("fecha_aceptabilidad"));
         }catch(Exception e){
+            this.setearModalAlerta(request,"Error", "Ha ocurrido un porblema en la carga del ingreso. Revise los datos ingresados.", AsistenteDeColores.getError());
             response.redirect("/gesoc/cargar_ingreso");
             return response;
         }
@@ -92,8 +94,9 @@ public class IngresoController implements Controlador{
             }
             ingreso.setEgresos(egresosAAsociar);
             repoIngresos.modificar(ingreso);
+            this.setearModalAlerta(request,"Éxito en la carga del ingreso", "El ingreso ha sido cargado con éxito.", AsistenteDeColores.getExito());
         }else{
-            /////tirar algun warning
+            this.setearModalAlerta(request,"Error en la carga del ingreso", "El ingreso no puede ser asociado a los egresos seleccionados. Se ha cargado el ingreso pero no se realizó la asociación.", AsistenteDeColores.getError());
         }
 
 
@@ -201,34 +204,46 @@ public class IngresoController implements Controlador{
 
     }
 
-    @Override
-    public void setearModalAlerta(Request request, String titulo, String mensaje, String color) {
-
+    public void setearModalAlerta(Request request, String titulo, String mensaje, String color){
+        request.session().attribute("alerta_carga_ingreso",true);
+        request.session().attribute("aviso_modal_carga_ingreso", mensaje);
+        request.session().attribute("modal_titulo_carga_ingreso", titulo);
+        request.session().attribute("modal_color_carga_ingreso", color);
     }
 
-    @Override
-    public boolean mostrarModalAlerta(Request request) {
-        return false;
+    public boolean mostrarModalAlerta(Request request){
+        if(request.session().attribute("alerta_carga_ingreso")==null)
+            return false;
+        return request.session().attribute("alerta_carga_ingreso");
     }
 
-    @Override
-    public String obtenerTituloModalAlerta(Request request) {
-        return null;
+    public String obtenerTituloModalAlerta(Request request){
+        return request.session().attribute("modal_titulo_carga_ingreso");
     }
 
-    @Override
-    public String obtenerMensajeModalAlerta(Request request) {
-        return null;
+    public String obtenerMensajeModalAlerta(Request request){
+        return request.session().attribute("aviso_modal_carga_ingreso");
     }
 
-    @Override
-    public String obtenerColorModalAlerta(Request request) {
-        return null;
+    public String obtenerColorModalAlerta(Request request){
+        return request.session().attribute("modal_color_carga_ingreso");
     }
 
-    @Override
-    public void cancelarModalAlerta(Request request) {
+    public void cancelarModalAlerta(Request request){
+        request.session().attribute("alerta_carga_ingreso",false);
+    }
 
+    public String obtenerItem(Request request, Response response){
+        System.out.println("llegoooooo");
+        int idItem=Integer.parseInt(request.queryParams("id_item"));
+        System.out.println(idItem);
+        Item item=FactoryRepositorio.instancia().obtenerRepositorio(Item.class).buscar(idItem);
+
+        System.out.println(item.getDescripcion());
+        String json=(new Gson()).toJson(item);
+        System.out.println(json);
+        response.type("application/json");
+        return json;
     }
 
 

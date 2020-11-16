@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public enum Periodo {
-    SEGUNDO("Una vez por segundo", 1000),//comentado, se usa para pruebas pero no hay que mostrarlo al usuario
+    //SEGUNDO("Una vez por segundo", 1000), //comentado, se usa para pruebas pero no hay que mostrarlo al usuario
     HORARIO ("Una vez por hora", 1000*60*60), DOCE_HS("Una vez cada 12 horas", 12*1000*60*60), DIARIO ("Una vez por día", 24*1000*60*60), SEMANAL("Una vez semana", 7*24*1000*60*60), QUINCENAL("Una vez por quincena", 7*24*1000*60*60*2), MENSUAL("Una vez por mes", 7*24*1000*60*60*4);
 
     private String nombre;

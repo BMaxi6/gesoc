@@ -1,9 +1,6 @@
 package controllers;
 
-import DTOs.EgresoCategoriasDTO;
-import DTOs.EgresoDto;
-import DTOs.PresupuestoDTO;
-import DTOs.RevisorDto;
+import DTOs.*;
 import builders.BuilderEgreso;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -351,9 +348,9 @@ public class EgresoController implements Controlador{
         int idEgreso = Integer.parseInt(request.queryParams("id_egreso"));
         OperacionDeEgreso egreso = FactoryRepositorio.instancia().obtenerRepositorio(OperacionDeEgreso.class).buscar(idEgreso);
 
-        List<Item> items = egreso.getItems();
+        List<ItemDto> itemsDto = egreso.getItems().stream().map(i -> ItemDto.toItemDto(i)).collect(Collectors.toList());
         Gson gson = new Gson();
-        String jsonItems = gson.toJson(items);
+        String jsonItems = gson.toJson(itemsDto);
         response.type("application/json");
 
         return jsonItems;
