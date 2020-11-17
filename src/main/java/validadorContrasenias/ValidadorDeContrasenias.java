@@ -50,11 +50,11 @@ public class ValidadorDeContrasenias {
             try {
                 throw debilException;
             }catch(DebilException exception){
-                System.out.println("Su contrasenia no cumple las condiciones");
+                System.out.println("Su contraseña no cumple las condiciones");
             }
             this.validarContrasenia(contrasenia);
         } else {
-            System.out.println("Contrasenia aceptada.");
+            System.out.println("contraseña aceptada.");
             return true;
         }
         return false;
