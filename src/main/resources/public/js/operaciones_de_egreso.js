@@ -264,6 +264,7 @@ function manejarCategorias(jsonCategorias){
         tbodyRef.innerHTML = "";
         document.getElementById('tituloCategorias').innerHTML = 'Categorías';
         document.getElementById('rowTablaCategorias').style.display = 'inline';
+        document.getElementById('rowBotonCategorias').style.display = 'none';
 
         var i;
         for(i=0; i<categorias_pedidas.length; i++){

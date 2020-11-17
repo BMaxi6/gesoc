@@ -3,6 +3,10 @@
     <groupId> proyecto </groupId>
     <artifactId> proyecto </artifactId>
     <version> 0.0.1-SNAPSHOT </version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
     <build>
         <plugins>
             <plugin>
@@ -22,13 +26,6 @@
                     <processTypes>
                         <web>java -cp target/classes:target/dependency/* Spark.SparkServer.SparkRouter</web>
                     </processTypes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
         </plugins>
