@@ -29,19 +29,22 @@ public class ApiService {
 
     private ApiService(){
         prop = new Properties();
-        InputStream is;
+        InputStream is = null;
 
         try {
             is = new FileInputStream("configAsociadorApi.properties");
             prop.load(is);
         } catch(IOException e) {
             System.out.println(e.toString());
-            System.out.println("Aca no encontro nadaaaaa");
         }
 
-        this.retrofit=new Retrofit.Builder().baseUrl(this.prop.getProperty("PATH_BASE_API"))
-            .addConverterFactory(GsonConverterFactory.create()).build();
-        System.out.println("Base URL: " + retrofit.baseUrl());
+        if(this.prop.getProperty("PATH_BASE_API") == null){
+            this.retrofit=new Retrofit.Builder().baseUrl("https://gesoc-componente-asociador.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create()).build();
+        } else {
+            this.retrofit=new Retrofit.Builder().baseUrl(this.prop.getProperty("PATH_BASE_API"))
+                    .addConverterFactory(GsonConverterFactory.create()).build();
+        }
     }
 
     public void guardarIngresos(List<IngresoApi> ingresos) throws IOException {
